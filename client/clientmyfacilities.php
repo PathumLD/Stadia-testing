@@ -77,38 +77,42 @@
 
                   </tr>
                   
-                      <?php
+                  <?php
+                    if(isset($_POST['go'])) {
+                        $search = $_POST['search'];
+                    } else {
+                        $search = null;
+                    }
 
-                        if(isset($_POST['go'])) {
-                          $search = $_POST['search'];
+                    //get the first non-null value (either from the drinks or snacks table) as the itemname.
+                    $query = "SELECT o.id, o.date, o.time, COALESCE(d.itemname, s.itemname) AS itemname, o.quantity 
+                              FROM orders o
+                              LEFT JOIN refreshments_drinks d ON o.product_id = d.itemid AND o.type = 'drink'
+                              LEFT JOIN refreshments_snacks s ON o.product_id = s.itemid AND o.type = 'snack'
+                              WHERE o.date LIKE '%$search%' AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack')";
+
+                    $res = mysqli_query($linkDB, $query); 
+
+                    if($res == TRUE) {
+                        $count = mysqli_num_rows($res); //calculate number of rows
+                        if($count > 0) {
+                            while($rows = mysqli_fetch_assoc($res)) {
+                                $id = $rows['id'];
+                                echo "<tr id='row_$id'>
+                                        <td>" . $rows["date"]. "</td>
+                                        <td>" . date('H:i', strtotime($rows["time"])). "</td>
+                                        <td>" . $rows["itemname"].  "</td>
+                                        <td>" . $rows["quantity"]."</td>
+                                        <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
+                                            <a href='clientupdaterefreshment.php?id=$id'><i class='fa fa-pencil-square-o'></i></a> </td>
+                                      </tr>";
+                            }
                         } else {
-                          $search = null;
+                            echo "0 results";
                         }
+                    }    
+                    ?>
 
-                          $query = "SELECT * FROM orders WHERE date LIKE '%$search%' AND email = '".$var."' AND type = 'refreshment'";
-                          $res = mysqli_query($linkDB, $query); 
-                                  if($res == TRUE) 
-                                  {
-                                      $count = mysqli_num_rows($res); //calculate number of rows
-                                      if($count>0)
-                                      {
-                                          while($rows=mysqli_fetch_assoc($res))
-                                          {
-                                              $id=$rows['id'];
-                                              echo "<tr id='row_$id'>
-                                                      <td>" . $rows["date"]. "</td>
-                                                      <td>" . $rows["time"]. "</td>
-                                                      <td>" . $rows["itemname"].  "</td>
-                                                      <td>" . $rows["quantity"]."</td>
-                                                      <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                                                          <a href='clientupdaterefreshment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
-                                                  </tr>";
-                                          }
-                                      } else {
-                                          echo "0 results";
-                                      }
-                                  }    
-                      ?>
 
                   
               </table>
@@ -126,6 +130,7 @@
                   <tr>
 
                       <th>Date</th>
+                      <th>Time</th>
                       <th>Item Name</th>
                       <th>Ordered Quantity</th>
                       <th>Action</th>
@@ -133,7 +138,10 @@
                   </tr>
 
                   <?php
-                      $query = "SELECT * FROM ordered_equipment WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
+                      $query = "SELECT o.id, o.date, o.time, e.itemname, o.quantity 
+                                FROM orders o
+                                LEFT JOIN equipment e ON o.product_id = e.itemid AND o.type = 'equipment'
+                                WHERE o.date LIKE '%$search%' AND o.email = '$var' AND o.type = 'equipment' ";
                       $res = mysqli_query($linkDB, $query); 
                               if($res == TRUE) 
                               {
@@ -145,8 +153,9 @@
                                           $id=$rows['id'];
                                           echo "<tr id='row__$id'>
                                                   <td>" . $rows["date"]. "</td>
+                                                  <td>" . date('H:i', strtotime($rows["time"])). "</td>
                                                   <td>" . $rows["itemname"]. "</td>
-                                                  <td>" . $rows["orderedquantity"]. "</td>
+                                                  <td>" . $rows["quantity"]. "</td>
                                                   <td><button class='submit-button' onclick='confirmRowData2($id)'><i class='fa fa-trash'></i></button>
                                                       <a href='clientupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
                                               </tr>";

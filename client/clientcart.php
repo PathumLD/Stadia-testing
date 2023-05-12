@@ -64,9 +64,9 @@
                   // Validate datetime input
                   $now = new DateTime();
                   $three_months = new DateInterval('P3M');
-                  $max_date = $now->add($three_months)->format('Y-m-d H:i:s');
+                  $max_date = $now->add($three_months)->format('Y-m-d H:i');
 
-                  if ($datetime < date('Y-m-d H:i:s') || $datetime > $max_date) {
+                  if ($datetime < date('Y-m-d H:i') || $datetime > $max_date) {
                     echo "Invalid date/time. Please enter a date/time within the next 3 months from the current date.";
                     break;
                   }
@@ -100,11 +100,11 @@
                 <thead>
                   <tr>
                     <th>Product Name</th>
-                    <th>Price</th>
+                    <th>Price (Rs.)</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Total (Rs.)</th>
                   </tr>
                 </thead>
                 <tbody>
