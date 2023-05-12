@@ -1,0 +1,48 @@
+                            /* today Classes */
+
+/* .content .dash1{
+    width: 40%;
+    height: 40rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 2rem;
+    margin-top: 12px;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+} */
+
+.dash1 .table{
+    width: 40%;
+    float: right;
+    margin-right: 2% ;
+    margin-top: 1%;
+    max-width: 1200px;
+    text-align: center;
+    border: #6d9976 2px solid;
+    border-radius: 20px;
+    border-collapse: collapse;
+}
+
+.dash1 .table th{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #6d9976;
+    color: #000;
+    text-align: center;
+}
+
+.dash1 .table td{
+    padding: 10px;
+    font-size: 18px;
+    color: #000;
+    text-align: center;
+}
+
+.dash1 .table tr{
+    background-color: #fff;
+}
+
+.dash1 .table tr:nth-child(odd){
+    background: #f0f0f0;
+}
