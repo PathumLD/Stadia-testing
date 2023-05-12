@@ -13,7 +13,7 @@
   overflow-y: auto;
   background-color: #ffffff;
   width: 60%;
-  height: 40rem;
+  height: 39rem;
   border-radius: 20px;
   margin-left: 3rem;
   margin-top: 2rem;
@@ -25,14 +25,15 @@
   flex-direction: column;
   float: right;
   width: 30%;
-  /* height: 40rem; */
+  /* height: 39rem; */
   margin-right: 2rem;
-  margin-top: -40rem;
+  margin-top: -39rem;
   margin-bottom: 2rem;
   border-radius: 20px;
 }
 
 .content .right .top {
+  margin-top: 20%;
   flex: 1;
   border-radius: 20px;
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
@@ -41,7 +42,7 @@
 .content .right .bottom {
   flex: 1;
   border-radius: 20px;
-  margin-top: 20px;
+  margin-top: 20%;
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -115,7 +116,7 @@ tfoot {
   outline: none;
   margin-top: 4%;
   margin-bottom: 4%;
-  margin-left: 23%;
+  margin-left: 28%;
   box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
