@@ -131,12 +131,6 @@
                 
                 </div>
 
-                <div class="bottom">
-
-                  <img src="../images/complaint.jpg" alt="Girl in a jacket">
-
-                </div>
-
             </div> 
 
           </div>

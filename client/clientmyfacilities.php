@@ -85,7 +85,7 @@
                           $search = null;
                         }
 
-                          $query = "SELECT * FROM client_refreshments WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
+                          $query = "SELECT * FROM orders WHERE date LIKE '%$search%' AND email = '".$var."' AND type = 'refreshment'";
                           $res = mysqli_query($linkDB, $query); 
                                   if($res == TRUE) 
                                   {
@@ -99,7 +99,7 @@
                                                       <td>" . $rows["date"]. "</td>
                                                       <td>" . $rows["time"]. "</td>
                                                       <td>" . $rows["itemname"].  "</td>
-                                                      <td>" . $rows["orderedquantity"]."</td>
+                                                      <td>" . $rows["quantity"]."</td>
                                                       <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
                                                           <a href='clientupdaterefreshment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
                                                   </tr>";

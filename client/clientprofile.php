@@ -182,6 +182,8 @@
               
               <div class="right">
 
+                <h3>Profile Photo</h3>
+
                 <table id="tableprofile">   
 
                   <?php

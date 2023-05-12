@@ -17,7 +17,7 @@
 
      if (mysqli_num_rows($check_result) > 0) {
          // If the class is already in the client_classes table, show an error message
-         header('location: clientcoachbadminton.php?msg=notsuccess');
+         header('location: clientmyclasses.php?msg=notsuccess');
      } else {
 
          // If the class is not in the client_classes table, insert it
@@ -25,10 +25,10 @@
          $insert_result = mysqli_query($linkDB, $insert_query);
          
          if ($insert_result) {
-            header('location: clientcoachbadminton.php?msg=success');
+            header('location: clientmyclasses.php?msg=success');
          } else {
              // If there was an error inserting the class, show an error message
-             header('location: clientcoachbadminton.php?msg=unsuccess');
+             header('location: clientmyclasses.php?msg=unsuccess');
          }
      }
 ?>

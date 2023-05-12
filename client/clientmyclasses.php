@@ -47,6 +47,19 @@
 
             <div class="content">
 
+              <?php
+                // Check if a success message is present in the URL
+                if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                    echo "<div id='success-message' class='success-message'>Class registration successfull.</div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
+                  echo "<div id='unsuccess-message' class='notsuccess-message'>Couldn't register for the class - Try again </div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                    echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
+                }
+              ?>
+
               <table id="searchtable">
                 <tr>
                   <td>
@@ -236,4 +249,23 @@ function confirmRowData(id) {
     document.body.removeChild(confirmBox);
   });
 }
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    var unsuccessMessage = document.getElementById('unsuccess-message');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+    if (unsuccessMessage) {
+        unsuccessMessage.style.display = 'none';
+    }
+}, 3000);
 </script>

@@ -45,19 +45,6 @@
             
             <div class="content">
 
-            <?php
-              // Check if a success message is present in the URL
-              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                  echo "<div id='success-message' class='success-message'>Class registration successfull.</div>";
-              }
-              if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
-                echo "<div id='unsuccess-message' class='notsuccess-message'>Couldn't register for the class - Try again </div>";
-            }
-            if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
-            }
-            ?>
-
                         <h3><b>Enroll with the classes we provide!</b><br><br>
                         Whether you're looking to learn a new skill, develop a new hobby, or advance your career, taking classes can help you achieve your goals.</h3>
 
@@ -146,11 +133,11 @@
 
                         $email = $_POST['coach_email'];
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='badminton'AND email = '$email' ";
+                        $query = "SELECT * FROM coach_classes WHERE sport='badminton' AND email = '$email'  AND status = (1 || 2)";
 
                     } else{
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='badminton'";
+                        $query = "SELECT * FROM coach_classes WHERE sport='badminton' AND status = (1 || 2)";
                     }
                     $res = mysqli_query($linkDB, $query); 
                     if($res == TRUE) {
@@ -255,24 +242,4 @@ function registerConfirmation(id) {
     });
 }
 </script>
-
-<script>
-// Remove the success message after 3 seconds
-setTimeout(function() {
-    var successMessage = document.getElementById('success-message');
-    var notsuccessMessage = document.getElementById('notsuccess-message');
-    var unsuccessMessage = document.getElementById('unsuccess-message');
-
-    if (successMessage) {
-        successMessage.style.display = 'none';
-    }
-    if (notsuccessMessage) {
-        notsuccessMessage.style.display = 'none';
-    }
-    if (unsuccessMessage) {
-        unsuccessMessage.style.display = 'none';
-    }
-}, 3000);
-</script>
-
 
