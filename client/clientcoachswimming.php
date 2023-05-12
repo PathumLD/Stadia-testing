@@ -130,7 +130,7 @@
 
                 <tr>
 
-                    <th>Date</th>
+                    <th>Day</th>
                     <th>Age Group</th>
                     <th>Level</th>
                     <th>Time</th>
@@ -160,7 +160,7 @@
                             {
                                 $id=$rows['id'];
                                 echo "<tr id='row_$id'>
-                                        <td>" . $rows["date"]. "</td>
+                                        <td>" . $rows["day"]. "</td>
                                         <td>" . $rows["age_group"]. "</td>
                                         <td>" . $rows["level"]. "</td>
                                         <td>" . $rows["time"]. "</td>
@@ -227,7 +227,7 @@ function registerConfirmation(id) {
     var row = document.getElementById('row_' + id);
 
     // Get the class data from the row
-    var date = row.cells[0].innerHTML;
+    var day = row.cells[0].innerHTML;
     var age_group = row.cells[1].innerHTML;
     var level = row.cells[2].innerHTML;  
     var time = row.cells[3].innerHTML;
@@ -237,7 +237,7 @@ function registerConfirmation(id) {
     // Create a custom confirm box
     var confirmBox = document.createElement('div');
     confirmBox.classList.add('confirm-box');
-    confirmBox.innerHTML = '<h2>Confirm Registration?</h2></i><p>Class Details:</p><ul><li>Date: ' + date + '</li><li>Age Group: ' + age_group + '</li><li>Level: ' + level + '</li><li>Time: ' + time + '</li><li>Coach: ' + coach + '</li><li>Fee: ' + fee + '</li></ul><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+    confirmBox.innerHTML = '<h2>Confirm Registration?</h2></i><p>Class Details:</p><ul><li>Day: ' + day + '</li><li>Age Group: ' + age_group + '</li><li>Level: ' + level + '</li><li>Time: ' + time + '</li><li>Coach: ' + coach + '</li><li>Fee: ' + fee + '</li></ul><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
 
     // Add the confirm box to the page
     document.body.appendChild(confirmBox);
