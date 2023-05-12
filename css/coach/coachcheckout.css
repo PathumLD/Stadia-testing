@@ -1,0 +1,42 @@
+.main-content h1{
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+                                /* checkout */  
+
+.content .summary{
+  background-color: #ffffff;
+  width: 35rem;
+  height: 25rem;
+  border-radius: 20px;
+  margin-left: 5rem;
+  margin-top: 2rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+}
+
+.content .checkout{
+  background-color: #ffffff;
+  width: 35rem;
+  height: 10rem;
+  border-radius: 20px;
+  margin-left: 5rem;
+  margin-top: 3rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.content .paymentgateway{
+  background-color: #ffffff;
+  width: 50rem;
+  height: 40rem;
+  border-radius: 20px;
+  float: right;
+  margin-right: 5rem;
+  margin-top: -39rem;
+  top: 0;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.summary h3, .checkout h3, .paymentgateway h3{
+  text-align: center;
+}

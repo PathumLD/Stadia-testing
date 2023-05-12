@@ -1,0 +1,103 @@
+.main-content h1{
+    font-size: 40px;
+    margin-left: 10px;
+  }
+
+                             /* Search */
+
+.serachtable{
+    margin-top: 1rem;
+}
+
+.search{
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    padding: 10px;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    width: 20rem;
+    margin-left: 40rem;
+    margin-top: -15rem;
+}
+
+                                /* Table */
+
+.table{
+    width: 94rem;
+    margin: 3% ;
+    text-align: center;
+    border: #6d9976 2px solid;
+    border-radius: 20px;
+    border-collapse: collapse;
+    display: inline-table;
+}
+
+.table th{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #6d9976;
+    color: #000;
+    text-align: center;
+    border-right: solid 1px #ffffff;
+}
+
+.table td {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    border-right: solid 1px #ffffff;
+}
+
+.table tr:nth-child(odd){
+    background: #f0f0f0;
+}
+
+.table td a{
+    text-decoration: none;
+    color: black;
+}
+
+.table td a:hover, .table td a i:hover{
+    text-decoration: underline;
+}
+
+                                    /* Button */
+
+#searchbtn{
+    background: #6d9976;
+    color: #000;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+#searchbtn:hover{
+    background: #264838;
+    color: #fff;
+    cursor: pointer;
+}
+
+#resetbtn{
+    background: #6d9976;
+    color: #000;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+#resetbtn:hover{
+    background: #264838;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}

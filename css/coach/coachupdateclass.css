@@ -1,0 +1,199 @@
+.main-content h1{
+    font-size: 40px;
+    margin-left: 10px;
+  }
+
+                                /* Table */
+
+.table{
+    width: 94rem;
+    margin: 3% ;
+    text-align: center;
+    border: #6d9976 2px solid;
+    border-radius: 20px;
+    border-collapse: collapse;
+    display: inline-table;
+}
+
+.table th{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #6d9976;
+    color: #000;
+    text-align: center;
+    border-right: solid 1px #ffffff;
+}
+
+.table td {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    border-right: solid 1px #ffffff;
+}
+
+.table tr:nth-child(odd){
+    background: #f0f0f0;
+}
+
+.table td a{
+    text-decoration: none;
+    color: black;
+}
+
+.table td a:hover, .table td a i:hover{
+    text-decoration: underline;
+}
+
+                                /* checkout */  
+
+.update{
+  background-color: #ffffff;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 20px;
+  margin-left: 10rem;
+  margin-top: 2rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+}
+
+                            /* Update form details */
+
+.input{
+    width: 50%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    max-width: 20rem;
+    font-weight: 400;
+    margin-left: 6.5rem;
+    border: 2px solid #6d9976;
+    border-radius: 1.3rem;
+}
+
+.input2{
+    width: 70%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    max-width: 20rem;
+    font-weight: 400;
+    margin-left: 3.8rem;
+    border: 2px solid #6d9976;
+    border-radius: 1rem;
+}
+
+.request p{
+    margin-left: 0.7rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+                            /* Dropdown */
+
+.drop{
+    width: 50%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    max-width: 20rem;
+    font-weight: 400;
+    margin-left: 6.5rem;
+    border: 2px solid #6d9976;
+    border-radius: 1.3rem;
+}
+
+                            /* Submit Button */      
+
+.btn{
+    background: #6d9976;
+    color: #000;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 10rem;
+    transition: all 0.3s ease;
+}
+
+.btn:hover{
+    background: #264838;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn1{
+    background: #6d9976;
+    color: #000;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 10.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn1:hover{
+    background: #264838;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+.request{
+  background-color: #ffffff;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 20px;
+  margin-left: 40rem;
+  margin-top: -29rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.delete{
+  background-color: #ffffff;
+  width: 25rem;
+  height: 25rem;
+  float: right;
+  border-radius: 20px;
+  margin-right: 12rem;
+  margin-top: -25rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#classid{
+    margin-left: 8.3rem;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #000000;
+    border: 2px solid #6d9976;
+    padding: 0.5rem;
+    border-radius: 1.3rem;
+}
+
+.delete p{
+    margin: 2rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+#warn{
+    margin-left: 4.5rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ff0000;
+}
+
+.update h3, .delete h3, .request h3{
+  text-align: center;
+}
+
