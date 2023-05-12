@@ -1,0 +1,59 @@
+
+              /*  form boarder */
+
+
+
+.main-content h1{
+    font-size: 40px;
+    margin-left: 10px;
+  }
+
+                            /* Form */
+
+.form{
+    margin-left: 30rem;
+    border: #000 solid 1px;
+    max-width: 64rem;
+    padding: 2rem;
+}
+
+.form input{
+    width: 35%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    max-width: 20rem;
+    font-weight: 400;
+    border: 2px solid #6d9976;
+    border-radius: 1.3rem;
+}
+                            /* Submit Button */      
+
+.btn{
+    background: #6d9976;
+    color: #000;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover{
+    background: #264838;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+                            /* Dropdown */
+
+.drop{
+    width: 35%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    max-width: 20rem;
+    font-weight: 400;
+    border: 2px solid #6d9976;
+    border-radius: 1.3rem;
+}
