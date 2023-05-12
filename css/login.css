@@ -251,3 +251,14 @@ body{
   margin-left: 0.5rem;
   text-align: center;
 }
+
+#reset {
+  height: 318px;
+  margin-left: 95px;
+  width: auto;
+}
+#rst {
+  height: 439px;
+  margin-left: 34px;
+  width: auto;
+}

@@ -164,7 +164,7 @@
 
                         <h3>Book Slots</h3>
 
-                        <h4><b>Book a slot now!</b><br>
+                        <h4><b>Book a slot now!</b><br><br>
                             Our facility offers a wide range of activities to keep you moving, from badminton, basketball and volleyball to tennis and swimming. Book a slot at our stadium today and take your fitness to the next level!</h4>
                         <a href="clientslotsbadminton1.php"><button class="enroll">Badminton</button></a>
                         <a href="clientslotsbasketball.php"><button class="enroll">Basketball</button></a><br>
@@ -174,11 +174,7 @@
 
                     </div>
 
-                    <div class="bottom">
-
-                    <img src="../images/bb.gif" alt="gif">
-
-                    </div>
+                    
 
                 </div>
                     

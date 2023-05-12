@@ -103,6 +103,17 @@
                           <?php
                             // Check if a file was selected for upload
                             if(!empty($_FILES['image']['name'])) {
+
+                                // Delete the old photo from the server
+                                $result = mysqli_query($linkDB, "SELECT dp FROM users WHERE email = '".$var."'");
+                                $row = mysqli_fetch_array($result);
+                                $oldfile = $row['dp'];
+                                if($oldfile != null) {
+                                  $folder = "../img/";
+                                  $target_file = $folder . basename($oldfile);
+                                  unlink($target_file);
+                                }
+                              
                               // Upload the image to a temporary location
                               $tempname = uniqid() . '_' . $_FILES['image']['name'];
                               $folder = "../img/";
@@ -118,6 +129,7 @@
                                 echo "<img src='".$folder.$tempname."' alt='dp'>";
                               }
                             } else{
+                              
                               // Retrieve the image from the database
                               $folder = "../img/";
                               $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
@@ -129,7 +141,7 @@
                                 // Display the image on the web page
                                 echo '<img src="' . $folder . $filename . '" alt ="dp">';
                               } else {
-                                echo "Upload a profile photo";
+                                echo '<img src="../img/noprofile.jpg"> ' ;
                               }
                             }
                           ?>
@@ -160,6 +172,7 @@
                           inputTag.addEventListener("change", (event) => {
                             // Submit the form when a file is selected
                             uploadForm.submit();
+                            
                           });
                         </script>
                     
@@ -181,6 +194,8 @@
               </div> 
               
               <div class="right">
+
+                <h3>Profile Photo</h3>
 
                 <table id="tableprofile">   
 

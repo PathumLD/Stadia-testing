@@ -1,6 +1,6 @@
 
 .home-content .main-content .content #searchtable .search{
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   color: #000;
   padding: 10px;
@@ -17,7 +17,7 @@
     border: 1px solid #6d9976;
     border-radius: 20px;
     padding: 0.5rem 1rem;
-    font-size: 1rem;
+    font-size: 18px;
     font-weight: 400;
     transition: all 0.3s ease;
 }
@@ -28,7 +28,7 @@
   border: 1px solid #6d9976;
   border-radius: 20px;
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: 400;
   transition: all 0.3s ease;
   margin-left: 7rem;
@@ -46,7 +46,7 @@ color: #000;
 border: 1px solid #6d9976;
 border-radius: 20px;
 padding: 0.5rem 1rem;
-font-size: 1rem;
+font-size: 18px;
 font-weight: 400;
 transition: all 0.3s ease;
 margin-left: 7rem;
@@ -83,7 +83,7 @@ cursor: pointer;
   
 .home-content .main-content .content .table th{
   padding: 10px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   background: #6d9976;
   color: #000;
@@ -93,7 +93,7 @@ cursor: pointer;
   
 .home-content .main-content .content .table td{
   padding: 10px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   color: #000;
   text-align: center;
@@ -202,35 +202,3 @@ cursor: pointer;
   cursor: pointer;
   font-size: 18px;
 }
-
- /* success message */
-
-.success-message {
-  background-color: #D6EFC7;
-  color: #6d9976;
-  padding: 10px;
-  margin-bottom: 2%;
-  border-radius: 10px;
-  margin-right: 2rem;
-  margin-left: 2rem;
-}
-
-.unsuccess-message {
-  background-color: #D6EFC7;
-  color: red;
-  padding: 10px;
-  margin-bottom: 2%;
-  border-radius: 10px;
-  margin-right: 2rem;
-  margin-left: 2rem;
-} 
-
-.notsuccess-message {
-  background-color: #D6EFC7;
-  color: red;
-  padding: 10px;
-  margin-bottom: 2%;
-  border-radius: 10px;
-  margin-right: 2rem;
-  margin-left: 2rem;
-} 

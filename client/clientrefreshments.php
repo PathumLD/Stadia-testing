@@ -78,7 +78,7 @@
                                     <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_drinks['itemid'] ?>">
                                     <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_drinks['itemname'] ?>">
                                     <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_drinks['price'] ?>">
-                                    <input type="hidden" name="product_type_<?= $productId ?>" value="refreshment">
+                                    <input type="hidden" name="product_type_<?= $productId ?>" value="drink">
                                     <tr>
                                         <td><label><?= $row_drinks['itemname'] ?></label></td>
                                         <td><label><?= $row_drinks['price'] ?></label></td>
@@ -121,7 +121,7 @@
                                         <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_snacks['itemid'] ?>">
                                         <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_snacks['itemname'] ?>">
                                         <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_snacks['price'] ?>">
-                                        <input type="hidden" name="product_type_<?= $productId ?>" value="refreshment">
+                                        <input type="hidden" name="product_type_<?= $productId ?>" value="snack">
                                         <tr>
                                             <td><label><?= $row_snacks['itemname'] ?></label></td>
                                             <td><label><?= $row_snacks['price'] ?></label></td>

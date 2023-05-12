@@ -146,11 +146,11 @@
 
                         $email = $_POST['coach_email'];
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='basketball'AND email = '$email' ";
+                        $query = "SELECT * FROM coach_classes WHERE sport='basketball'AND email = '$email' AND status = (1 || 2)";
 
                     } else{
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='basketball'";
+                        $query = "SELECT * FROM coach_classes WHERE sport='basketball' AND status = (1 || 2)";
                     }
                     $res = mysqli_query($linkDB, $query); 
                     if($res == TRUE) {

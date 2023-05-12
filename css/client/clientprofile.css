@@ -1,30 +1,31 @@
 .home-content .main-content .content #tableprofile{
-    width: 100%;
-    margin: 3% auto;
-    float: left;
+  width: 80%;
+  margin: 3% auto;
+  float: left;
+  margin-top: 10%;
+  margin-left: 15%;
 }
 
 .home-content .main-content .content #tableprofile .mylabel{
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    text-align: left;
-    border-radius: 20px;
-    width: fit-content;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  text-align: left;
+  border-radius: 20px;
+  width: fit-content;
 }
 
 .home-content .main-content .content #tableprofile .mydata{
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    background: #6d9976;
-    color: #000;
-    text-align: center;
-    border-radius: 20px;
-    width: 50%;
+  padding: 10px;
+  font-size: 18px;
+  /* background: #6d9976; */
+  color: #000;
+  text-align: center;
+  border-radius: 20px;
+  width: 50%;
 }
- 
+
  /* profile update button popup css */
 
 .form-popup {
@@ -47,7 +48,7 @@
 }
 
 .form-container label{
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .form-container input[type=tel], .form-container input[type=text]{
@@ -69,7 +70,7 @@
   color: #fff;
   margin-top: 4 rem;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 18px;
   border-radius: 20px;
 }
 
@@ -79,7 +80,7 @@
   color: #fff;
   margin-top: 4 rem;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 18px;
   border-radius: 20px;
   float: right;
 }
@@ -118,7 +119,6 @@
   margin-bottom: 2rem;
   border-radius: 20px;
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
-
 }
 
 .content .left .top {
@@ -134,7 +134,7 @@
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.content .left .top h3{
+.content .left .top h3, .content .right h3{
   text-align: center;
   background-color: #D6EFC7;
   color: #6d9976;
@@ -165,7 +165,7 @@
   position: relative;
   outline: none;
   margin-bottom: 2%;
-  margin-left: 20%;
+  margin-left: 27.5%;
   box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
@@ -255,7 +255,7 @@ input[type=password], input[type=tel],input[type=text]{
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -293,7 +293,7 @@ input[type=password], input[type=tel],input[type=text]{
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  margin-left: 70%;
+  margin-left: 115%;
   object-fit: cover;
   margin-top: 10%;
 }
@@ -306,8 +306,8 @@ input[type=password], input[type=tel],input[type=text]{
 .profilepic table td label i{
   font-size: 2rem;
   color: #3B6E51;
-  padding-top: 150px;
-  padding-left: 100px;
+  padding-top: 160px;
+  padding-left: 180px;
 }
 
 .profilepic label i:hover{
