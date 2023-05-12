@@ -60,8 +60,8 @@ else if (!preg_match("/^[0-9]{10}$/", $phone) || !preg_match("/^[0-9]{10}$/", $e
       $error1 = "<h3>Email already exists.</h3>";
     } else {
       $password = md5($password);
-      $query = "INSERT INTO users (email, password, fname, lname, gender, NIC, dob, phone, address, emname, emphone, type)
-                VALUES ('$email', '$password', '$fname', '$lname', '$gender', '$NIC', '$dob', '$phone', '$address', '$emname', '$emphone', '$type')";
+      $query = "INSERT INTO users (email, password, fname, lname, gender, NIC, dob, phone, address, emname, emphone, type, datetime)
+                VALUES ('$email', '$password', '$fname', '$lname', '$gender', '$NIC', '$dob', '$phone', '$address', '$emname', '$emphone', '$type' , CURRENT_TIMESTAMP)";
       mysqli_query($linkDB, $query);
       $_SESSION['email'] = $email;
       $error1 .= "<h3>Successfully Registered!</h3>";
