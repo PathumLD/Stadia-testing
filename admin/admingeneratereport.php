@@ -28,8 +28,25 @@ include("../linkDB.php"); //database connection function
 
     <?php include('../include/javascript.php'); ?>
     <?php include('../include/styles.php'); ?>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 
-</head>
+  
+  </head>
+  
+
 
 <body onload="initClock()">
 
@@ -48,37 +65,25 @@ include("../linkDB.php"); //database connection function
         </nav>
 
         <div class="home-content">
-            <div class="main-content" id="report-content">
-
-                <h1 id="report">Generate Reports</h1>
-
-                <div class="report-section">
-                    <div class="report-container">
-
-                        <body>
-                           <table class="table" id="report-pdf">
-                            <tr>
-                                <th>Report Type</th>
-                                <th>Action</th>
-                            </tr>
-                        <tr>
-                            <td class="notification">View List of coaches</td>
-                            <td><a href="listofcoaches.php">Generate Report</a></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">View List of members</td>
-                            <td><a href="#">Generate Report</a></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">View Complaint status</td>
-                            <td><a href="#">Generate Report</a></td>
-                        </tr>
-                        
-                    </table>
-                    </div>
-
+            <div class="main-content" id="report-content">     
+  
+    <div class="report-generator">
+                <h1>Generate Reports</h1>
+                    <form  method="post" action="report_generator.php" target="_blank">
+                        <label for="report-type">Select report type:</label>
+                        <select id="report-type" name="report_type">
+                            <option value="listcoaches">List of Coaches</option>
+                            <option value="listmembers">List of Members</option>
+                            <option value="refreshmentorders">Refreshment Orders</option>
+                            <option value="equipmentorders">Equipment Orders</option>
+                            <option value="complainstatus">Complaint Status</option>
+                        </select>
+                        <button class="btn-new" type="submit" name="generate_report" style="margin-left: 111px;margin-top: 24px;">Generate Report</button>
+                    </form>
                 </div>
 
+            </div>
+        </div>
             </div>
         </div>
 
@@ -112,3 +117,42 @@ include("../linkDB.php"); //database connection function
         });
     }
 </script>
+
+<?php
+// Get the selected report type from the form submission
+if(isset($_POST['generate_report'])) {
+    $report_type = $_POST['report_type'];
+
+    // Execute the appropriate SQL query based on the selected report type
+    if ($report_type == 'listcoaches') {
+        $query = "SELECT sport, GROUP_CONCAT(coach) as coaches FROM coach_classes GROUP BY sport";
+        $result = $linkDB->query($query);
+
+        // Display the results as a table
+        echo '<table>';
+        echo '<thead><tr><th>Sport</th><th>Coaches</th></tr></thead>';
+        echo '<tbody>';
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>' . $row['sport'] . '</td>';
+                echo '<td>' . $row['coaches'] . '</td>';
+                echo '</tr>';
+            }
+        } else {
+            echo '<tr><td colspan="2">No results found.</td></tr>';
+        }
+        echo '</tbody></table>';
+    } else if ($report_type == 'listmembers') {
+        // Add code to generate the "List of Members" report
+    } else if ($report_type == 'refreshmentorders') {
+        // Add code to generate the "Refreshment Orders" report
+    } else if ($report_type == 'equipmentorders') {
+        // Add code to generate the "Equipment Orders" report
+    } else if ($report_type == 'complainstatus') {
+        // Add code to generate the "Complaint Status" report
+    }
+
+   
+}
+?>
