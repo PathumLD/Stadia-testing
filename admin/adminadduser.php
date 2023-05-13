@@ -55,15 +55,15 @@
               <?php echo $error; ?>
             </div> -->
             <p class="add">Password</p>
-            <input type="password" name="password">
+            <input type="text" name="password">
             <br>
             <p class="add">Role</p>
             <select name="role_search" class="search" id="disable">
               <option value="" disabled selected>Search by Role</option>
-              <option value="admin">Admin</option>
               <option value="Manager">Manager</option>
                 <option value="Equipment Manager">Equipment Manager</option>
               <option value="external supplier">External supplier</option>
+              <option value="admin">Admin</option>
             </select>
             <br><br>
             <button type="submit" class="btn" name="form">Confirm Add</button>
@@ -133,11 +133,11 @@ if ($count > 0) {
   // Store the unhashed password value in a temporary variable
   $tempPassword = $password;
  // //Password hashing
-  $password = substr(md5(mt_rand()), 0, 8);
-  $hashedPassword = md5($password);
+
+  $password = md5($password);
  
   // $hashedPassword = password_hash($Password, PASSWORD_DEFAULT);
-  $query = "INSERT INTO adminuser (email,username, password, type) VALUES ('$email','$username', '$hashedPassword', '$role')";
+  $query = "INSERT INTO adminuser (email,username, password, type) VALUES ('$email','$username', '$password', '$role')";
 
   if (!mysqli_query($linkDB, $query)) {
 

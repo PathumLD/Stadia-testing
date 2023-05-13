@@ -1,5 +1,6 @@
 <?php include("../linkDB.php"); //database connection function 
 
+/*queries for the boxes*/
 //booked slots
 $tb1 = "SELECT * FROM slots_badminton1 WHERE `start_event` >= CURRENT_DATE AND `start_event`<= CURRENT_DATE+7";
 $tb2 = "SELECT * FROM slots_badminton2 WHERE `start_event` >= CURRENT_DATE AND `start_event`<= CURRENT_DATE+7";
@@ -43,11 +44,19 @@ $c6 = mysqli_query($linkDB, $tb6);
 $c_6 = mysqli_num_rows($c6);
 $cancelled = $c_1 + $c_2 + $c_3 + $c_4 + $c_5 + $c_6;
 
+//total no of members
+
+$sql = "SELECT COUNT(*) as count FROM users WHERE MONTH(datetime) = MONTH(CURRENT_DATE()) AND YEAR(datetime) = YEAR(CURRENT_DATE())";
+$result = mysqli_query($linkDB, $sql);
+$count = mysqli_fetch_assoc($result)['count'];
 
 //total complaints
-$totalComplaintsQuery = "SELECT COUNT(*) AS total FROM complaints";
+$totalComplaintsQuery = "SELECT COUNT(*) AS total FROM complaints WHERE MONTH(datetime) = MONTH(CURRENT_DATE()) AND YEAR(datetime) = YEAR(CURRENT_DATE())";
 $totalComplaintsResult = mysqli_query($linkDB, $totalComplaintsQuery);
 $totalComplaints = mysqli_fetch_assoc($totalComplaintsResult)['total'];
+
+/*chart start*/
+
 // Retrieve data from the database
 $sql = "SELECT quantity, itemname FROM equipment";
 $result = mysqli_query($linkDB, $sql);
@@ -65,10 +74,11 @@ $colors = array(
 );
 
 // Perform database query
-$sql = "SELECT o.itemname, SUM(o.orderedquantity) AS ordered_quantity, e.quantity - SUM(o.orderedquantity) AS remaining_quantity
-FROM ordered_equipment o
-JOIN equipment e ON o.itemname = e.itemname
-GROUP BY o.itemname";
+$sql = "SELECT e.itemname, SUM(o.quantity) AS ordered_quantity, e.quantity - SUM(o.quantity) AS remaining_quantity
+FROM orders o
+JOIN equipment e ON o.product_id = e.itemid AND o.type = 'equipment'
+GROUP BY e.itemname";
+
 
 $result = mysqli_query($linkDB, $sql);
 
@@ -96,9 +106,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 
-// The pie chart
-// Retrieve data from database
-$query = "SELECT itemname, orderedquantity FROM client_refreshments";
+// // The pie chart
+// // Retrieve data from database
+$query = "SELECT r.itemname, SUM(o.quantity) AS ordered_quantity
+FROM orders o
+JOIN (
+  SELECT itemid, itemname FROM refreshments_snacks
+  UNION ALL
+  SELECT itemid, itemname FROM refreshments_drinks
+) r ON o.product_id = r.itemid AND o.type = 'refreshment'
+GROUP BY r.itemname";
+
 $result = mysqli_query($linkDB, $query);
 
 $data = array();
@@ -116,7 +134,7 @@ $i = 0;
 while ($row = mysqli_fetch_assoc($result)) {
     $data[] = array(
         'label' => $row['itemname'],
-        'value' => $row['orderedquantity'],
+        'value' => $row['ordered_quantity'],
         'color' => $colors[$i]
     );
     $i++;
@@ -237,7 +255,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="indicator">
                             <i class='bx bx-up-arrow-alt'></i>
-                            <span class="text">Up from this week</span>
+                            <span class="text">For this week</span>
                         </div>
                     </div>
                     <i class='bx bx-calendar-alt'></i>
@@ -249,7 +267,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="number"><?php echo $cancelled; ?></div>
                     <div class="indicator">
                         <i class='bx bx-up-arrow-alt'></i>
-                        <span class="text">Up from this week</span>
+                        <span class="text">For this week</span>
                     </div>
                 </div>
                 <i class='bx bx-calendar-x'></i>
@@ -257,10 +275,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="box">
                 <div class="right-side">
                     <div class="box-topic">Total Members</div>
-                    <div class="number">15</div>
+                    <div class="number"><?php echo $count; ?></div>
                     <div class="indicator">
                         <i class='bx bx-up-arrow-alt'></i>
-                        <span class="text">Up from this week</span>
+                        <span class="text">For this month</span>
                     </div>
                 </div>
                 <i class='bx bx-calendar-check'></i>
@@ -271,7 +289,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="number"><?php echo $totalComplaints; ?></div>
                     <div class="indicator">
                         <i class='bx bx-up-arrow-alt'></i>
-                        <span class="text">Up from this month</span>
+                        <span class="text">For this month</span>
                     </div>
                 </div>
                 <i class='bx bx-calendar-plus'></i>
@@ -288,7 +306,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                 <?php
                 // Query to retrieve the logged in users and their types
-                $query = "SELECT fname, lname, type FROM users ORDER BY id DESC LIMIT 10";
+                $query = "SELECT fname, lname, type FROM users WHERE MONTH(datetime) = MONTH(CURRENT_DATE()) AND YEAR(datetime) = YEAR(CURRENT_DATE())";
 
                 // Execute the query
                 $result = mysqli_query($linkDB, $query);
