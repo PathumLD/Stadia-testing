@@ -80,7 +80,7 @@
                   <td>
                     <form method="post">
                       <select name="sport_search" class="search" id="disable">
-                        <option value="" disabled selected>Search by Court</option>
+                        <option value="" disabled selected>Search by Sport</option>
                         <option value="Badminton">Badminton</option>
                         <option value="Basketball">Basketball</option>
                         <option value="Volleyball">Volleyball</option>
@@ -116,7 +116,7 @@
 
                           $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE day LIKE '%$search%' AND client_classes.status=1 AND client_classes.email = '".$var."'";
+                                    WHERE day LIKE '%$search%' AND client_classes.status=1 AND (coach_classes.status=1 OR coach_classes.status=2) AND client_classes.email = '".$var."'";
                       
                       } else if(isset($_POST['go2'])){
 
@@ -124,13 +124,13 @@
 
                           $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
                           FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                          WHERE sport LIKE '%$sport_search%' AND client_classes.status=1 AND client_classes.email = '".$var."'";
+                          WHERE sport LIKE '%$sport_search%' AND client_classes.status=1 AND (coach_classes.status=1 OR coach_classes.status=2) AND client_classes.email = '".$var."'";
 
                       } else {
                         
                           $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE client_classes.status=1 AND client_classes.email = '".$var."'";
+                                    WHERE client_classes.status=1 AND (coach_classes.status=1 OR coach_classes.status=2) AND client_classes.email = '".$var."'";
                       }
 
                           $res = mysqli_query($linkDB, $query); 
