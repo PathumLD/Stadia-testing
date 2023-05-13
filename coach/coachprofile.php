@@ -107,7 +107,7 @@
                           // Display the image on the web page
                           echo '<img src="' . $folder . $filename . '" alt ="dp">';
                         } else {
-                          echo "Upload a profile photo";
+                          echo '<img src="../img/noprofile.jpg"> ' ;
                         }
                       }
                     ?>
@@ -245,6 +245,9 @@ if (isset($_POST['submit'])) {
         $file_name = $_FILES['pdf_file']['name'];
         $file_tmp = $_FILES['pdf_file']['tmp_name'];
 
+        // Generate a unique ID for the file
+        $file_id = uniqid();
+
         // Check if a CV already exists for the user
         $sql = "SELECT * FROM pdf_data WHERE email = '$email'";
         $result = mysqli_query($linkDB, $sql);
@@ -258,13 +261,13 @@ if (isset($_POST['submit'])) {
                 unlink($old_file_path);
             }
             
-            // Update the filename in the database and upload the new CV file to the server
-            $query = "UPDATE pdf_data SET username = '$name', filename = '$file_name' WHERE email = '$email'";
-            move_uploaded_file($file_tmp, "../pdf/".$file_name);
+            // Update the filename and file ID in the database and upload the new CV file to the server
+            $query = "UPDATE pdf_data SET username = '$name', filename = '$file_name', file_id = '$file_id' WHERE email = '$email'";
+            move_uploaded_file($file_tmp, "../pdf/".$file_id.$file_name);
         } else {
             // Insert a new row in the database and upload the new CV file to the server
-            $query = "INSERT INTO pdf_data(username, filename, email) VALUES('$name', '$file_name', '$email')";
-            move_uploaded_file($file_tmp, "../pdf/".$file_name);
+            $query = "INSERT INTO pdf_data(username, filename, email, file_id) VALUES('$name', '$file_name', '$email', '$file_id')";
+            move_uploaded_file($file_tmp, "../pdf/".$file_id.$file_name);
         }
 
         $res = mysqli_query($linkDB, $query);
@@ -272,21 +275,22 @@ if (isset($_POST['submit'])) {
 }
 
 
-                          
+// Retrieve the pdf from the database
+$folder = "../pdf/";
+$sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
+$result = mysqli_query($linkDB, $sql);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    $file_id = $row['file_id'];
+    $filename = $row['filename'];
+    // code to display the pdf
+    echo '<embed src="'.$folder.$file_id.$filename.'" type="application/pdf" width="100%" height="590px"/>';
+} else {
+    echo "CV not found for the given email.";
+}
+?>
 
-                          // Retrieve the pdf from the database
-                          $folder = "../pdf/";
-                          $sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
-                          $result = mysqli_query($linkDB, $sql);
-                          $row = mysqli_fetch_array($result);
-                          if ($row) {
-                              $filename = $row['filename'];
-                              // code to display the pdf
-                              echo '<embed src="'.$folder.$filename.'" type="application/pdf" width="100%" height="590px"/>';
-                          } else {
-                              echo "CV not found for the given email.";
-                          }
-                          ?>
+
 
 
 
