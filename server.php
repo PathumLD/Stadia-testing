@@ -73,59 +73,89 @@ else if (!preg_match("/^[0-9]{10}$/", $phone) || !preg_match("/^[0-9]{10}$/", $e
     
     
       //-------User Login PHP Code ------------
-     
+     // Initialize stored_password to an empty string
+$stored_password = "";
+$stored_password_admin="";
+
 if (array_key_exists("logIn", $_POST)) {
-    
-    // Database Link
-    include('linkDB.php'); 
-    
-    //Taking form Data From User
-    $email = mysqli_real_escape_string($linkDB, $_POST['email']);
-    $password = mysqli_real_escape_string($linkDB,  $_POST['password']); 
 
-    // Check if email and password fields are not empty
-    if(empty($email) || empty($password)){
-      $error2 = "<h3>Please enter both email and password</h3>";
-    } else {
+// Database Link
+include('linkDB.php');
 
-        $query = "SELECT email FROM users WHERE email = '$email'";
-            $result = mysqli_query($linkDB, $query);
-            if (mysqli_num_rows($result) == 0) {
-                $error2 = "<h3> You haven't signed up using this email! </h3>";
-            } else {
-        
-                //matching email and password
-                
-                $query = "SELECT * FROM users WHERE email='$email'";
-                $result = mysqli_query($linkDB, $query);
-                        $row = mysqli_fetch_array($result);
-                        $verify= md5($password);
-                        if (count($row)) {
+//Taking form Data From User
+$email = mysqli_real_escape_string($linkDB, $_POST['email']);
+$password = mysqli_real_escape_string($linkDB, $_POST['password']);
+
+$user_result = $linkDB->query("SELECT * FROM users WHERE email='$email'");
+if ($user_result->num_rows > 0) {
+$user = $user_result->fetch_assoc();
+$stored_password = $user['password'];
+
+// Hash the user's input password using md5
+$input_password = $_POST['password'];
+$hashed_input_password = md5($input_password);
+
+// Compare the two hashes using ==
+if ($stored_password == $hashed_input_password) {
+if ($user['type'] == 'client') {
+// Redirect to client dashboard
+header('Location: clientdashboard.php');
+exit();
+} else if ($user['type'] == 'coach') {
+// Redirect to coach dashboard
+header('Location: coachdashboard.php');
+exit();
+}
+}
+}
+
+else{
+
+// Check if email exists in adminuser table
+$admin_result = $linkDB->query("SELECT * FROM adminuser WHERE email='$email'");
+if ($admin_result->num_rows > 0) {
+// Email exists in adminuser table
+$admin = $admin_result->fetch_assoc();
+
+$stored_password = $admin['password'];
+
+// Hash the user's input password using md5
+$input_password_admin = $_POST['password'];
+
+ $hashed_input_password_admin = md5($input_password_admin);
+
+// Compare the two hashes using ==
+if ($stored_password == $hashed_input_password_admin) {
+
+if ($admin['type'] == 'admin') {
+// Redirect to admin dashboard
+header("Location: ./admin/admindashboard.php");
+exit();
+} else if ($admin['type'] == 'Manager') {
+// Redirect to manager dashboard
+header('Location: managerdashboard.php');
+exit();
+} else if ($admin['type'] == 'external supplier') {
+// Redirect to supplier dashboard
+header('Location: ./exsupplier/supplierdashboard.php');
+exit();
+} else if ($admin['type'] == 'Equipment Manager') {
+// Redirect to equipment manager dashboard
+header('Location: equipmentdashboard.php');
+exit();
+}
+}
+}
+
+// Email not found in any table or password does not match
+$error2="Invalid email or password";
+
+
+}
+}
+
+?>
+
+                           
                             
-                            if ($verify==$row['password']) {
-                                
-                                //session variables to keep user logged in
-                                $_SESSION['email'] = $row['email'];  
-                                
-                                // //Logged in for long time until user didn't log out
-                                // if ($_POST['stayLoggedIn'] == '1') {
-                                //     setcookie('email', $row['email'], time() + 60*60*24); //Logged in permanently
-                                // }
-                                if ($row['type']=='client') {
-                                    header("Location: client/clientdashboard.php");
-                                }
-                                else{
-                                    header("Location: coach/coachdashboard.php");
-                                }
-
-                            } else {
-                                $error2 = "<h3>Combination of email/password does not match! </h3>";
-                              }
-              
-                        } else {
-                              $error2 = "<h3>Combination of email/password does not match! </h3>";
-                        }
-                            
-              }
-      }
-    }
+            
