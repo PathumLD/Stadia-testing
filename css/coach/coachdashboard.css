@@ -1,21 +1,33 @@
-                            /* today Classes */
-
-/* .content .dash1{
+                            /* dash 1 */
+.dash1{
     width: 40%;
-    height: 40rem;
+    height: 39.2rem;
     background-color: #ffffff;
     border-radius: 10px;
     padding: 10px;
-    margin-left: 2rem;
-    margin-top: 12px;
-    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
-} */
-
-.dash1 .table{
-    width: 40%;
+    margin-right: 2rem;
     float: right;
+    margin-top: 20px;
+    margin-bottom: 2rem;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dash1 .head{
+    width: 95%;
+    height: 10%;
+    background-color: #D6EFC7;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 1rem;
+    margin-top: 2px;
+    text-align: center;
+    float: right;
+}
+
+.dash1 .table1{
+    width: 100%;
     margin-right: 2% ;
-    margin-top: 1%;
+    margin-top: 15%;
     max-width: 1200px;
     text-align: center;
     border: #6d9976 2px solid;
@@ -23,7 +35,7 @@
     border-collapse: collapse;
 }
 
-.dash1 .table th{
+.dash1 .table1 th{
     padding: 10px;
     font-size: 18px;
     font-weight: 600;
@@ -32,17 +44,85 @@
     text-align: center;
 }
 
-.dash1 .table td{
+.dash1 .table1 td{
     padding: 10px;
     font-size: 18px;
     color: #000;
     text-align: center;
 }
 
-.dash1 .table tr{
+.dash1 .table1 tr{
     background-color: #fff;
 }
 
-.dash1 .table tr:nth-child(odd){
+.dash1 .table1 tr:nth-child(odd){
     background: #f0f0f0;
 }
+
+                /* dash 2 */
+
+.dash2{
+    width: 40%;
+    height: 39.2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 2rem;
+    margin-top: 20px;
+    margin-bottom: 2rem;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+
+
+.dash2 .head{
+    width: 95%;
+    height: 10%;
+    background-color: #D6EFC7;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 1rem;
+    margin-top: 12px;
+    text-align: center;
+}
+
+
+
+.dash2 #table2{
+    width: 95%;
+    margin: 0 0 0 2%;
+    max-width: 100%;
+    
+}
+
+.dash2 #table2 tr td{
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    margin-left: 10px;
+    border-radius: 20px;
+}
+
+.dash2 #table2 tr th{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 2rem;
+    color: #000;
+    text-align: left;
+    border-radius: 20px;
+}
+
+
+
+/* .dash2 #table2 tr td:nth-child(1){
+    width: 35%;
+    font-size: 20px;
+}
+
+.dash2 #table2 tr td:nth-child(2){
+    width: 65%;
+    font-size: 20px;
+} */
+
