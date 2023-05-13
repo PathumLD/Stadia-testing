@@ -48,7 +48,7 @@
                     <form method="post" >
                         <table class="table" id="noti">
                                 <?php
-                                    $query = 'SELECT * FROM notifications WHERE status = 1';
+                                    $query = 'SELECT * FROM notifications WHERE date >= CURRENT_DATE AND status = 1';
                                     $result = mysqli_query($linkDB, $query);
                                     if (mysqli_num_rows($result) > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -58,12 +58,14 @@
                                                 </tr>";
                                         }
                                     }
+                                    else {
+                                        echo "<i class='fa fa-bell-slash'></i>";
+                                    }
                                 ?>
                         </table>
                     </form>
 
-
-            </div>
+                </div>
 
         </div>
 

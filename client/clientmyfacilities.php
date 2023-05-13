@@ -55,7 +55,7 @@
                     <form method="post">
                         <input type="text" name="search" class="search" onfocus="(this.type = 'date')" placeholder="Search by Date">
                         <input type="submit" name="go" value="Search" id="searchbtn">
-                        <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                        <a href="clientmyfacilities.php"><input type="submit" value="reset" id = "resetbtn"></a>
                     </form>
                 </td>
               </tr>
@@ -169,7 +169,7 @@
                                       WHERE o.date >= CURDATE() AND o.email = '$var' AND o.type = 'equipment' AND o.status = 1
                                       ORDER BY o.date ASC";
                         }
-                      $res = mysqli_query($linkDB, $query); 
+                          $res = mysqli_query($linkDB, $query); 
                               if($res == TRUE) 
                               {
                                   $count = mysqli_num_rows($res); //calculate number of rows
