@@ -86,7 +86,7 @@
                               FROM orders o
                               LEFT JOIN refreshments_drinks d ON o.product_id = d.itemid AND o.type = 'drink'
                               LEFT JOIN refreshments_snacks s ON o.product_id = s.itemid AND o.type = 'snack'
-                              WHERE o.date LIKE '%$search%' AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack') AND status = 1
+                              WHERE o.date LIKE '%$search%' AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack') AND o.status = 1
                               ORDER BY o.date ASC";
 
                     } else {
@@ -94,7 +94,7 @@
                                 FROM orders o
                                 LEFT JOIN refreshments_drinks d ON o.product_id = d.itemid AND o.type = 'drink'
                                 LEFT JOIN refreshments_snacks s ON o.product_id = s.itemid AND o.type = 'snack'
-                                WHERE o.date >= CURDATE() AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack') AND status = 1
+                                WHERE o.date >= CURDATE() AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack') AND o.status = 1
                                 ORDER BY o.date ASC";
                     }
 
@@ -120,8 +120,7 @@
                                           <td>" . date('H:i', strtotime($rows["time"])). "</td>
                                           <td>" . $rows["itemname"].  "</td>
                                           <td>" . $rows["quantity"]."</td>
-                                          <td> <button class='submit-button' onclick='confirmRowData($id)' $disabled><i class='fa fa-trash'></i></button> 
-                                              <a href='clientupdaterefreshment.php?id=$id'><i class='fa fa-pencil-square-o'></i></a> </td>
+                                          <td> <button class='submit-button' onclick='confirmRowData($id)' $disabled><i class='fa fa-trash'></i></button> </td>
                                         </tr>";
                               }
                           } else {
@@ -160,14 +159,14 @@
                       $query = "SELECT o.id, o.date, o.time, e.itemname, o.quantity 
                                 FROM orders o
                                 LEFT JOIN equipment e ON o.product_id = e.itemid AND o.type = 'equipment'
-                                WHERE o.date LIKE '%$search%' AND o.email = '$var' AND o.type = 'equipment' AND status = 1
+                                WHERE o.date LIKE '%$search%' AND o.email = '$var' AND o.type = 'equipment' AND o.status = 1
                                 ORDER BY o.date ASC";
                         
                         } else {
                             $query = "SELECT o.id, o.date, o.time, e.itemname, o.quantity 
                                       FROM orders o
                                       LEFT JOIN equipment e ON o.product_id = e.itemid AND o.type = 'equipment'
-                                      WHERE o.date >= CURDATE() AND o.email = '$var' AND o.type = 'equipment' AND status = 1
+                                      WHERE o.date >= CURDATE() AND o.email = '$var' AND o.type = 'equipment' AND o.status = 1
                                       ORDER BY o.date ASC";
                         }
                       $res = mysqli_query($linkDB, $query); 
@@ -197,8 +196,7 @@
                                                   <td>" . date('H:i', strtotime($rows["time"])). "</td>
                                                   <td>" . $rows["itemname"]. "</td>
                                                   <td>" . $rows["quantity"]. "</td>
-                                                  <td><button class='submit-button' onclick='confirmRowData2($id) $disabled'><i class='fa fa-trash'></i></button>
-                                                      <a href='clientupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
+                                                  <td><button class='submit-button' onclick='confirmRowData2($id) $disabled'><i class='fa fa-trash'></i></button></td>
                                               </tr>";
                                       }
                                   } else {

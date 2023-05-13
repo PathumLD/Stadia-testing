@@ -105,13 +105,14 @@
                     <th>Time</th>
                     <th>Quantity</th>
                     <th>Total (Rs.)</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
                     $total = 0;
                     if(isset($_SESSION['cart'])) {
-                      foreach($_SESSION['cart'] as $cart_item) {
+                      foreach($_SESSION['cart'] as $key => $cart_item) {
                         $product_name = $cart_item['name'];
                         $product_price = $cart_item['price'];
                         $date = $cart_item['date'];
@@ -128,6 +129,12 @@
                       <td><?php echo $time ?></td>
                       <td><?php echo $quantity ?></td>
                       <td><?php echo $product_total ?></td>
+                      <td>
+                        <form method="post" action="" class="deletecart">
+                          <input type="hidden" name="product_id" value="<?php echo $key ?>">
+                          <button type="submit" name="delete_item"><i class="fa fa-minus-circle"></i></button>
+                        </form>
+                      </td>
                     </tr>
                   <?php
                       }
@@ -138,9 +145,27 @@
                   <tr id="total">
                     <td colspan="5"><b>Total</b></td>
                     <td><b><?php echo $total ?></b></td>
+                    <td></td>
                   </tr>
                 </tfoot>
               </table>
+
+              <?php
+              
+                // Check if the update quantity button was clicked
+                if(isset($_POST['update_quantity'])) {
+                  $product_id = $_POST['product_id'];
+                  $new_quantity = $_POST['quantity'];
+                  $_SESSION['cart'][$product_id]['quantity'] = $new_quantity;
+                }
+
+                // Check if the delete item button was clicked
+                if(isset($_POST['delete_item'])) {
+                  $product_id = $_POST['product_id'];
+                  unset($_SESSION['cart'][$product_id]);
+                }
+              
+              ?>
 
             </div>
 

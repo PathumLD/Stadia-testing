@@ -69,7 +69,7 @@
                             </thead>
                             <?php
 
-                                $query_drinks = "SELECT * FROM refreshments_drinks";
+                                $query_drinks = "SELECT * FROM refreshments_drinks WHERE status = 1";
                                 $result_drinks = mysqli_query($linkDB, $query_drinks);
                                 while ($row_drinks = mysqli_fetch_assoc($result_drinks)) {
                                     $productId = $row_drinks['itemid'];
@@ -112,7 +112,7 @@
                             </thead>
                             <?php
 
-                                    $query_snacks = "SELECT * FROM refreshments_snacks";
+                                    $query_snacks = "SELECT * FROM refreshments_snacks WHERE status = 1";
                                     $result_snacks = mysqli_query($linkDB, $query_snacks);
                                     while ($row_snacks = mysqli_fetch_assoc($result_snacks)) {
                                         $productId = $row_snacks['itemid'];

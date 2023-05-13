@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/client.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -45,28 +45,23 @@
 
                 <div class="content">
 
-                    <table class="table" id="noti">
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                    </table>
-                    
-                    <div class="button">
-                        <a href="#"> Clear All Notifications </a>
-                    </div>
+                    <form method="post" >
+                        <table class="table" id="noti">
+                                <?php
+                                    $query = 'SELECT * FROM notifications WHERE status = 1';
+                                    $result = mysqli_query($linkDB, $query);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>
+                                                    <td>" . $row['date'] . "</td>
+                                                    <td>" . $row['title'] . "</td>
+                                                </tr>";
+                                        }
+                                    }
+                                ?>
+                        </table>
+                    </form>
+
 
             </div>
 

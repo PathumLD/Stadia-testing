@@ -118,7 +118,7 @@
                                 </tr>
                             </thead>
                             <?php
-                            $query_equipment = "SELECT * FROM equipment";
+                            $query_equipment = "SELECT * FROM equipment WHERE status = 1";
                             $result_equipment = mysqli_query($linkDB, $query_equipment);
                             while ($row_equipment = mysqli_fetch_assoc($result_equipment)) {
                                 $productId = $row_equipment['itemid'];
