@@ -80,39 +80,55 @@
                   <?php
                     if(isset($_POST['go'])) {
                         $search = $_POST['search'];
-                    } else {
-                        $search = null;
-                    }
 
                     //get the first non-null value (either from the drinks or snacks table) as the itemname.
                     $query = "SELECT o.id, o.date, o.time, COALESCE(d.itemname, s.itemname) AS itemname, o.quantity 
                               FROM orders o
                               LEFT JOIN refreshments_drinks d ON o.product_id = d.itemid AND o.type = 'drink'
                               LEFT JOIN refreshments_snacks s ON o.product_id = s.itemid AND o.type = 'snack'
-                              WHERE o.date LIKE '%$search%' AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack')";
+                              WHERE o.date LIKE '%$search%' AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack') AND status = 1
+                              ORDER BY o.date ASC";
+
+                    } else {
+                      $query = "SELECT o.id, o.date, o.time, COALESCE(d.itemname, s.itemname) AS itemname, o.quantity
+                                FROM orders o
+                                LEFT JOIN refreshments_drinks d ON o.product_id = d.itemid AND o.type = 'drink'
+                                LEFT JOIN refreshments_snacks s ON o.product_id = s.itemid AND o.type = 'snack'
+                                WHERE o.date >= CURDATE() AND o.email = '$var' AND (o.type = 'drink' OR o.type = 'snack') AND status = 1
+                                ORDER BY o.date ASC";
+                    }
 
                     $res = mysqli_query($linkDB, $query); 
 
-                    if($res == TRUE) {
-                        $count = mysqli_num_rows($res); //calculate number of rows
-                        if($count > 0) {
-                            while($rows = mysqli_fetch_assoc($res)) {
-                                $id = $rows['id'];
-                                echo "<tr id='row_$id'>
-                                        <td>" . $rows["date"]. "</td>
-                                        <td>" . date('H:i', strtotime($rows["time"])). "</td>
-                                        <td>" . $rows["itemname"].  "</td>
-                                        <td>" . $rows["quantity"]."</td>
-                                        <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                                            <a href='clientupdaterefreshment.php?id=$id'><i class='fa fa-pencil-square-o'></i></a> </td>
-                                      </tr>";
-                            }
-                        } else {
-                            echo "0 results";
-                        }
-                    }    
-                    ?>
+                      if($res == TRUE) {
+                          $count = mysqli_num_rows($res); //calculate number of rows
+                          if($count > 0) {
+                              while($rows = mysqli_fetch_assoc($res)) {
+                                  $id = $rows['id'];
+                                  
+                                  //calculate the difference between the order date and the current date
+                                  $orderDate = strtotime($rows["date"]);
+                                  $currentTime = time();
+                                  $diff = $orderDate - $currentTime;
+                                  $daysDiff = round($diff / (60 * 60 * 24));
 
+                                  //disable the submit button if the order date is less than 3 days from the current date
+                                  $disabled = ($daysDiff >= 3) ? '' : 'disabled';
+                                  
+                                  echo "<tr id='row_$id'>
+                                          <td>" . $rows["date"]. "</td>
+                                          <td>" . date('H:i', strtotime($rows["time"])). "</td>
+                                          <td>" . $rows["itemname"].  "</td>
+                                          <td>" . $rows["quantity"]."</td>
+                                          <td> <button class='submit-button' onclick='confirmRowData($id)' $disabled><i class='fa fa-trash'></i></button> 
+                                              <a href='clientupdaterefreshment.php?id=$id'><i class='fa fa-pencil-square-o'></i></a> </td>
+                                        </tr>";
+                              }
+                          } else {
+                              echo "0 results";
+                          }
+                      }
+                  ?>
 
                   
               </table>
@@ -138,10 +154,22 @@
                   </tr>
 
                   <?php
+                        if(isset($_POST['go'])) {
+                        $search = $_POST['search'];
+
                       $query = "SELECT o.id, o.date, o.time, e.itemname, o.quantity 
                                 FROM orders o
                                 LEFT JOIN equipment e ON o.product_id = e.itemid AND o.type = 'equipment'
-                                WHERE o.date LIKE '%$search%' AND o.email = '$var' AND o.type = 'equipment' ";
+                                WHERE o.date LIKE '%$search%' AND o.email = '$var' AND o.type = 'equipment' AND status = 1
+                                ORDER BY o.date ASC";
+                        
+                        } else {
+                            $query = "SELECT o.id, o.date, o.time, e.itemname, o.quantity 
+                                      FROM orders o
+                                      LEFT JOIN equipment e ON o.product_id = e.itemid AND o.type = 'equipment'
+                                      WHERE o.date >= CURDATE() AND o.email = '$var' AND o.type = 'equipment' AND status = 1
+                                      ORDER BY o.date ASC";
+                        }
                       $res = mysqli_query($linkDB, $query); 
                               if($res == TRUE) 
                               {
@@ -151,12 +179,25 @@
                                       while($rows=mysqli_fetch_assoc($res))
                                       {
                                           $id=$rows['id'];
+
+                                          //get the current date
+                                          $currentDate = date("Y-m-d");
+
+                                          //calculate the difference between the order date and the current date
+                                          $orderDate = strtotime($rows["date"]);
+                                          $currentDateTime = strtotime($currentDate);
+                                          $diff = $orderDate - $currentDateTime;
+                                          $daysDiff = round($diff / (60 * 60 * 24));
+
+                                          //disable the row if the order date is less than or equal to the current date
+                                          $disabled = ($daysDiff <= 0) ? 'disabled' : '';
+
                                           echo "<tr id='row__$id'>
                                                   <td>" . $rows["date"]. "</td>
                                                   <td>" . date('H:i', strtotime($rows["time"])). "</td>
                                                   <td>" . $rows["itemname"]. "</td>
                                                   <td>" . $rows["quantity"]. "</td>
-                                                  <td><button class='submit-button' onclick='confirmRowData2($id)'><i class='fa fa-trash'></i></button>
+                                                  <td><button class='submit-button' onclick='confirmRowData2($id) $disabled'><i class='fa fa-trash'></i></button>
                                                       <a href='clientupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
                                               </tr>";
                                       }
@@ -230,8 +271,8 @@ function confirmRowData(id) {
   var confirmButton = document.getElementById('confirm-button');
   var cancelButton = document.getElementById('cancel-button');
   confirmButton.addEventListener('click', function() {
-    // Redirect to the clientcancelrefreshment.php page
-    window.location.href = 'clientcancelrefreshment.php?id=' + id;
+    // Redirect to the clientcancelfacility.php page
+    window.location.href = 'clientcancelfacility.php?id=' + id;
   });
   cancelButton.addEventListener('click', function() {
     // Remove the confirm box from the page
@@ -262,8 +303,8 @@ function confirmRowData2(id) {
   var confirmButton = document.getElementById('confirm-button');
   var cancelButton = document.getElementById('cancel-button');
   confirmButton.addEventListener('click', function() {
-    // Redirect to the clientcancelequipment.php page
-    window.location.href = 'clientcancelequipment.php?id=' + id;
+    // Redirect to the clientcancelfacility.php page
+    window.location.href = 'clientcancelfacility.php?id=' + id;
   });
   cancelButton.addEventListener('click', function() {
     // Remove the confirm box from the page

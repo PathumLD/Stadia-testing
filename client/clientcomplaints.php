@@ -80,7 +80,7 @@
 
                 <?php
 
-                    $query = "SELECT * FROM complaints WHERE status = 1 AND email = '".$var."'" ;
+                    $query = "SELECT * FROM complaints WHERE status = 1 AND handled = 2 AND email = '".$var."'" ;
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
