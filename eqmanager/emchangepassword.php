@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/eqmanager.css">
+    <link rel="stylesheet" href="../css/eqmanager/emchangepassword.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -39,23 +39,30 @@
 
         <div class="main-content">
 
-            <h1>Dashboard</h1>
-
-            <?php
-                // Check if a success message is present in the URL
-                if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                    echo "<div id='success-message' class='success-message'>Password updated successfully.</div>";
-                }
-                if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                  echo "<div id='notsuccess-message' class='notsuccess-message'>Could not update password - Please try again.</div>";
-                }
-                if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
-                  echo "<div id='unsuccess-message' class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
-                }
-              ?>
+            <h1>Change Password</h1>
 
             <div class="content">
 
+                <div class="left">
+
+                    <div class="form" id="changePassword">
+
+                        <form method="post" action="emupdate_password.php" >
+
+                            <input type="password" id="currentpswd" name="currentpswd" placeholder="Old Password" required><br>
+                           
+                            <input type="password" id="newpswd" name="newpswd" placeholder="New Password" required><br>
+
+                            <input type="password" id="confirmnewpswd" name="confirmnewpswd" placeholder="Confirm New Password" required><br>
+
+                            <input type="submit" value="Change Password" name="save" class="btn">
+
+                        </form>
+
+                    </div>
+
+                </div>
+            
             </div>
 
         </div>
@@ -91,21 +98,3 @@
         }
 </script>
 
-<script>
-// Remove the success message after 3 seconds
-setTimeout(function() {
-    var successMessage = document.getElementById('success-message');
-    var notsuccessMessage = document.getElementById('notsuccess-message');
-    var unsuccessMessage = document.getElementById('unsuccess-message');
-
-    if (successMessage) {
-        successMessage.style.display = 'none';
-    }
-    if (notsuccessMessage) {
-        notsuccessMessage.style.display = 'none';
-    }
-    if (unsuccessMessage) {
-        unsuccessMessage.style.display = 'none';
-    }
-}, 3000);
-</script>

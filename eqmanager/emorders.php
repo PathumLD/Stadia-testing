@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/eqmanager.css">
+    <link rel="stylesheet" href="../css/eqmanager/emorders.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -53,14 +53,14 @@
                         </td>
                         <td>
                             <form method="post">
-                                <input type="text" name="name_search" id="name_search" placeholder="Search by Name">
-                                <input type="submit" name="go2" value="Search">
+                                <input type="text" name="name_search" class="search" id="name_search" placeholder="Search by Name">
+                                <input type="submit" name="go2" value="Search" id="searchbtn">
                             </form>
                         </td>
                         <td>
                             <form method="post">
-                                <input type="text" name="item_search" id="item_search" placeholder="Search by item">
-                                <input type="submit" name="go3" value="Search">
+                                <input type="text" name="item_search" class="search" id="item_search" placeholder="Search by item">
+                                <input type="submit" name="go3" value="Search" id="searchbtn">
                                 <a href="emorders.php"><input type="submit" value="reset" id = "resetbtn"></a>
                             </form>
                         </td>
@@ -68,6 +68,8 @@
                 </table>
 
             <div class="left">
+
+                <h3>To be Supplied </h3>
 
                 <table class="table">
 
@@ -133,14 +135,14 @@
 
                                     //get the current date
                                     $currentDate = date("Y-m-d");
-
+                                    
                                     //calculate the difference between the order date and the current date
                                     $orderDate = strtotime($rows["date"]);
                                     $currentDateTime = strtotime($currentDate);
                                     $diff = $orderDate - $currentDateTime;
                                     $daysDiff = round($diff / (60 * 60 * 24));
-
-                                    //disable the row if the order date is less than or equal to the current date
+                                    
+                                    //disable the submit button if the order date is less than or equal to the current date
                                     $disabled = ($daysDiff <= 0) ? 'disabled' : '';
 
                                     echo "<tr id='row__$id'>
@@ -149,7 +151,12 @@
                                             <td>" . $rows["name"]. "</td>
                                             <td>" . $rows["itemname"]. "</td>
                                             <td>" . $rows["quantity"]. "</td>
-                                            <td><button class='submit-button' onclick='confirmRowData2($id) $disabled'><i class='fa fa-trash'></i></button></td>
+                                            <td>
+                                                <form method='post'>
+                                                    <input type='hidden' name='supply_id' value='$id'>
+                                                    <button class='submit-button' $disabled><i class='fa fa-check'></i></button>
+                                                </form>
+                                            </td>
                                         </tr>";
                                 }
                             } else {
@@ -158,12 +165,31 @@
                         }  
                     ?>
 
+                    <?php
+                        if(isset($_POST['supply_id'])) {
+                            $order_id = $_POST['supply_id'];
+                            $query = "UPDATE orders SET s_r = 1 WHERE id = '$order_id'";
+                            $res = mysqli_query($linkDB, $query);
+
+                            if ($res==TRUE)
+                            {
+                                echo "<script>window.location.href='emorders.php'; </script>";
+                            }
+                            else
+                            {
+                                echo "<script>window.location.href='emorders.php'; </script>";
+                            }
+                        }
+                    ?>
+
                 </table>
 
             </div>
 
             <div class="right">
                 <div class="top">
+
+                <h3>To be Returned</h3>
 
                 <table class="table">
 
@@ -226,16 +252,16 @@
                                     {
                                         $id=$rows['id'];
 
-                                        //get the current date
+                                       //get the current date
                                         $currentDate = date("Y-m-d");
-
+                                        
                                         //calculate the difference between the order date and the current date
                                         $orderDate = strtotime($rows["date"]);
                                         $currentDateTime = strtotime($currentDate);
                                         $diff = $orderDate - $currentDateTime;
                                         $daysDiff = round($diff / (60 * 60 * 24));
-
-                                        //disable the row if the order date is less than or equal to the current date
+                                        
+                                        //disable the submit button if the order date is less than or equal to the current date
                                         $disabled = ($daysDiff <= 0) ? 'disabled' : '';
 
                                         echo "<tr id='row__$id'>
@@ -244,13 +270,35 @@
                                                 <td>" . $rows["name"]. "</td>
                                                 <td>" . $rows["itemname"]. "</td>
                                                 <td>" . $rows["quantity"]. "</td>
-                                                <td><button class='submit-button' onclick='confirmRowData2($id) $disabled'><i class='fa fa-trash'></i></button></td>
+                                                <td>
+                                                    <form method='post'>
+                                                        <input type='hidden' name='order_id' value='$id'>
+                                                        <button class='submit-button' $disabled><i class='fa fa-check'></i></button>
+                                                    </form>
+                                                </td>
                                             </tr>";
                                     }
                                 } else {
                                     echo "0 results";
                                 }
                             }  
+                        ?>
+
+                        <?php
+                        if(isset($_POST['order_id'])) {
+                            $order_id = $_POST['order_id'];
+                            $query = "UPDATE orders SET s_r = 2 WHERE id = '$order_id'";
+                            $res = mysqli_query($linkDB, $query);
+
+                            if ($res==TRUE)
+                            {
+                                echo "<script>window.location.href='emorders.php'; </script>";
+                            }
+                            else
+                            {
+                                echo "<script>window.location.href='emorders.php'; </script>";
+                            }
+                        }
                         ?>
 
                     </table>
