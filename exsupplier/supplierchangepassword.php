@@ -48,7 +48,7 @@
                 <?php $var = $_SESSION['email']; ?>
 
                 <div class="form">
-          <h1>Change Password</h1>
+                <h1>Change Password</h1>
 
                         <form method="POST">
 

@@ -53,7 +53,8 @@
 
                         // Display drinks data in table
                         while ($row = mysqli_fetch_assoc($drinks_result)) {
-                            echo "<td><img src='../products/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>" . $row['price'] . "</td>";
+                            echo "<td><img src='../products/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>Rs. " . $row['price'] . "</td>";
+
                         }
                         ?>
                     </tr>
@@ -65,7 +66,8 @@
 
                         // Display snacks data in table
                         while ($row = mysqli_fetch_assoc($snacks_result)) {
-                            echo "<td><img src='../products/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>" . $row['price'] . "</td>";
+                            echo "<td><img src='../products/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>Rs. " . $row['price'] . "</td>";
+
                         }
                         ?>
                     </tr>
