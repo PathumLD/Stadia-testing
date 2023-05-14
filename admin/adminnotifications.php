@@ -58,7 +58,7 @@
                                 $email = $_SESSION["email"];
 
                                 // Query the notifications table for the specified email address
-                                $query = "SELECT * FROM notifications WHERE email = '$email'";
+                                $query = "SELECT * FROM notifications WHERE email = '$email' AND is_read = 0";
                                 $result = mysqli_query($linkDB, $query);
 
                                 // Check if there are any notifications for the current user
@@ -68,11 +68,12 @@
                                     echo "<tbody>";
                                     // Loop through the query result and display the notifications in a table
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<tr>";
+                                        $id = $row['id'];
+                                        echo "<tr id='row_$id'>";
                                         echo "<td>" . $row["id"] . "</td>";
                                         echo "<td>" . $row["message"] . "</td>";
                                         echo "<td>" . $row["created_at"] . "</td>";
-                                        echo "<td><a href='#' onclick='deleteNotification(this)' data-id='" . $row["id"] . "'><i class='fa fa-trash'></i></a></td>";
+                                        echo "<td><a href='deletenotification.php?id=$id;'><i class='fa fa-trash'></i></a>";
                                         echo "</tr>";
                                     }
                                     echo "</tbody></table>";
@@ -84,21 +85,8 @@
                             }
                             ?>
 
-                            <script>
-                                function deleteNotification(element) {
-                                    var id = element.getAttribute('data-id');
-                                    var formData = new FormData();
-                                    formData.append('id', id);
-                                    fetch('delete_notification.php', {
-                                        method: 'POST',
-                                        body: formData
-                                    }).then(function (response) {
-                                        element.closest('tr').remove();
-                                    }).catch(function (error) {
-                                        console.log(error);
-                                    });
-                                }
-                            </script>
+
+
                     </form>
                 </div>
 
