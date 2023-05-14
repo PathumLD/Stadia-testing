@@ -31,3 +31,5 @@ first_aid
 
 slots_badminton1, slots_badminton2, slots_basketball, slots_swimming, slots_tennis, slots_volleyball
 	status dflt 1 -> 0 if client deletes
+
+notifications
