@@ -40,70 +40,34 @@
         </nav>
 
         <div class="home-content">
-            
+
 
             <div class="main-content">
-            <div class="class">
-            <h1>Supply Orders</h1>
 
-                
 
-                <table class="table" id="supplyorders">
+                <?php $var = $_SESSION['email']; ?>
 
-                    <tr>
+                <div class="form">
+          <h1>Change Password</h1>
 
-                        <th>Date</th>
-                        <th>Order Id</th>
-                        <th>Supplied</th>
-                        
-                    </tr>
+                        <form method="POST">
 
-                    <?php
-                    $query = "SELECT * FROM suppliermyorders";
-                    $res = mysqli_query($linkDB, $query);
-                    if ($res == TRUE) {
-                        $count = mysqli_num_rows($res); //calculate number of rows
-                        if ($count > 0) {
-                            while ($rows = mysqli_fetch_assoc($res)) {
-                                $Date= $rows['Date'];
-                                $OrderId = $rows['OrderId'];
-                               
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $Date; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $OrderId; ?>
-                                    </td>
-                                    <td><input type="checkbox" id="checkItem" class="chckbox" name="check[]" value="1"></td>
-                                </tr>
-                                <?php
-                            }
-                        }
+                        <p class="add">Current Password</p><input type="password" name="currentpswd">
+                        <p class="add">New Password</p><input type="password" name="newpswd"> 
+                        <p class="add">Confirm New Password</p><input type="password" name="confirmnewpswd">
+                        <br>
+                        <br>
+                        <button type="submit" class="btn" name="save">Save</button>
 
-                    }
-                    ?>
-<?php
-if (isset($_POST['OrderId'])) {
-    $OrderId = $_POST['OrderId'];
+                        </form>
 
-// retrieve the orderId from the POST parameter
-$OrderId = $_POST['OrderId'];
-
-// update the suppliermyorders table to indicate that the order has been supplied
-$query = "UPDATE suppliermyorders SET status = '1' WHERE OrderId = '$OrderId'";
-$result = mysqli_query($linkDB, $query);
-
-}
-?>
-
-                </table>
+                    </div>
+                </div>
 
             </div>
 
         </div>
-</div>
+
         <footer>
             <div class="foot">
                 <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
@@ -133,3 +97,45 @@ $result = mysqli_query($linkDB, $query);
         });
     }
 </script>
+
+<?php
+
+if(isset($_POST['save'])){
+  
+
+$currentpswd = $_POST['currentpswd'];
+$newpswd = $_POST['newpswd'];
+$confirmnewpswd = $_POST['confirmnewpswd'];
+
+if($newpswd!==$confirmnewpswd){
+        echo '<span class="error-new"><h3> Your Passwords does not match </h3></span>';
+    }
+else{
+
+  $query = "SELECT * FROM adminuser WHERE email= '".$var."' ";
+      $result = mysqli_query($linkDB, $query);
+      $row = mysqli_fetch_array($result);
+      $verify = md5($currentpswd);
+      $encrypt = md5($newpswd);
+      if (count($row)) {
+                  
+        if ($verify==$row['password']) {
+
+          $sql = "UPDATE adminuser SET password = '$encrypt' WHERE email = '{$_SESSION['email']}' ";
+          $rs= mysqli_query($linkDB,$sql);
+                  
+          if($rs){
+            echo "Password Updated";
+            echo "<script>window.location.href='supplierdashboard.php'; </script>";
+          } else{
+              echo "<p>Could not update password - please try again.</p>";
+            }
+        } else{
+          echo "<p>Could not update password - please try again.</p>";
+        }
+
+    }
+  } 
+}
+
+?>

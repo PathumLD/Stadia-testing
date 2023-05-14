@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php 
 // Include the database connection code
 include("../linkDB.php");

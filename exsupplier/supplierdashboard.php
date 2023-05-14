@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?>
 
 
@@ -52,7 +53,7 @@
 
                         // Display drinks data in table
                         while ($row = mysqli_fetch_assoc($drinks_result)) {
-                            echo "<td><img src='../images/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>" . $row['price'] . "</td>";
+                            echo "<td><img src='../products/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>" . $row['price'] . "</td>";
                         }
                         ?>
                     </tr>
@@ -64,7 +65,7 @@
 
                         // Display snacks data in table
                         while ($row = mysqli_fetch_assoc($snacks_result)) {
-                            echo "<td><img src='../images/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>" . $row['price'] . "</td>";
+                            echo "<td><img src='../products/" . $row['image'] . "'><br>" . $row['itemname'] . "<br>" . $row['price'] . "</td>";
                         }
                         ?>
                     </tr>
