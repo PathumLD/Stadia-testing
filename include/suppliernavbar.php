@@ -1,10 +1,32 @@
 <div class="sidebar-button">
 
-        <i class="fa fa-bars sidebarBtn" ></i>
+<i class="fa fa-bars sidebarBtn" ></i>
         <span class="hello">
-            
+<?php
 
-            <?php echo "Hello Supplier"; ?>
+    $var = $_SESSION['email'];
+
+    // Execute the query to retrieve the first name of the user with the specified email address
+    
+    $sql = "SELECT username FROM adminuser WHERE email = '".$var."'";
+    $result = mysqli_query($linkDB, $sql);
+
+    // Check if the query was successful
+    if ($result) {
+        // Fetch the results and store the first name in a variable
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $username = $row["username"];
+            }
+        }
+    } else {
+        // Display an error message if the query failed
+        echo "Error: " . mysqli_error($linkDB);
+    }
+
+?>
+
+            <?php echo "Hello $username "; ?>
 
         </span>
     </div>
