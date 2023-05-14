@@ -34,30 +34,29 @@
 
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" name="email" required>
+                <input type="text" placeholder="Enter your email" name="email">
               </div>
 
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" name="password" required>
+                <input type="password" placeholder="Enter your password" name="password">
               </div>
 
-              <div class="text"><a href="#">Forgot password?</a></div>
-
+              <div class="text"><a href="forgetpassword.php">Forgot password</a> </div>
+              
               <div class="button input-box">
                 <input type="submit" value="Login" name="logIn">
               </div>
-
+              
               <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+              
 
             </div>
         </form>
       </div>
 
 
-      
-
-        <div class="signup-form">
+          <div class="signup-form">
           <div class="title">Signup</div>
           
         <form method="POST" >
@@ -126,4 +125,3 @@
   </div>
 </body>
 </html>
-

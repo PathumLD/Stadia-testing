@@ -27,7 +27,6 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="login.php">Login</a></li>
-          <li><a href="adminlogin.php">Admin</a></li>
       </ul>
       <div class="media-icons">
         <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>

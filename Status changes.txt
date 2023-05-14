@@ -1,0 +1,35 @@
+Complaints
+	status dflt 1 -> 0 when client deletes
+	handled dflt 3 -> 4 when manager handles -> 5 manager deletes 
+
+Coach_classes
+	status dflt 0 when coach add new class
+		-> 1 when manager verifies
+		-> 2 coach delete request
+		-> 3 manager approves delete
+Request
+	status dflt 0 -> 1 when verified ny manager 
+
+Orders
+	status dflt 1 -> 0 if client cancels order
+	s_r dflt 0 -> 1 if supplied -> 2 if returned
+
+Client_classes
+	status dflt 1 -> 0 if client deregister from class
+
+Equipment 
+	status dflt 1 -> 0 if eqmanager deletes 
+
+Refreshment_drinks
+	status dflt 1 -> 0 if supplier deletes 
+
+Refreshment_snacks
+	status dflt 1 -> 0 if supplier deletes 
+
+first_aid
+	status dflt 1 -> 0 if manager deletes 
+
+slots_badminton1, slots_badminton2, slots_basketball, slots_swimming, slots_tennis, slots_volleyball
+	status dflt 1 -> 0 if client deletes
+
+notifications
