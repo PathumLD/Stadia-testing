@@ -116,48 +116,48 @@
 
                 <div class="profiledata">
 
-                    <?php
-                          // Check if a success message is present in the URL
-                          if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                              echo "<div class='success-message'>Password updated successfully.</div>";
-                          }
-                          if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                            echo "<div class='notsuccess-message'>Could not update password - Please try again.</div>";
-                          }
-                          if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
-                            echo "<div class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
-                          }
-                    ?>
-
                 <?php
-                  // Check if a success message is present in the URL
-                  if(isset($_GET['msg1']) && $_GET['msg1'] == 'success') {
-                      echo "<div class='success-message'>Phone number updated successfully.</div>";
-                  }
-                  if(isset($_GET['msg1']) && $_GET['msg1'] == 'notsuccess') {
-                    echo "<div class='notsuccess-message'>Could not update Phone number - Please try again.</div>";
-                  }
-                ?>
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                  echo "<div id='success-message' class='success-message'>Password updated successfully.</div>";
+              }
+              if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                echo "<div id='notsuccess-message' class='notsuccess-message'>Could not update password - Please try again.</div>";
+              }
+              if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
+                echo "<div id='unsuccess-message' class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
+              }
+            ?>
 
-                <?php
-                  // Check if a success message is present in the URL
-                  if(isset($_GET['msg2']) && $_GET['msg2'] == 'success') {
-                      echo "<div class='success-message'>Emergency contact number updated successfully.</div>";
-                  }
-                  if(isset($_GET['msg2']) && $_GET['msg2'] == 'notsuccess') {
-                    echo "<div class='notsuccess-message'>Could not update emergency contact number - Please try again.</div>";
-                  }
-                ?>
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg1']) && $_GET['msg1'] == 'success') {
+                  echo "<div id='success-msg1' class='success-message'>Phone number updated successfully.</div>";
+              }
+              if(isset($_GET['msg1']) && $_GET['msg1'] == 'notsuccess') {
+                echo "<div id='notsuccess-msg1' class='notsuccess-message'>Could not update Phone number - Please try again.</div>";
+              }
+            ?>
 
-                <?php
-                  // Check if a success message is present in the URL
-                  if(isset($_GET['msg3']) && $_GET['msg3'] == 'success') {
-                      echo "<div class='success-message'>Emergency contact name updated successfully.</div>";
-                  }
-                  if(isset($_GET['msg3']) && $_GET['msg3'] == 'notsuccess') {
-                    echo "<div class='notsuccess-message'>Could not update emergency contact name - Please try again.</div>";
-                  }
-                ?>
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg2']) && $_GET['msg2'] == 'success') {
+                  echo "<div id='success-msg2' class='success-message'>Emergency contact number updated successfully.</div>";
+              }
+              if(isset($_GET['msg2']) && $_GET['msg2'] == 'notsuccess') {
+                echo "<div id='notsuccess-msg2' class='notsuccess-message'>Could not update emergency contact number - Please try again.</div>";
+              }
+            ?>
+
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg3']) && $_GET['msg3'] == 'success') {
+                  echo "<div id='success-msg3' class='success-message'>Emergency contact name updated successfully.</div>";
+              }
+              if(isset($_GET['msg3']) && $_GET['msg3'] == 'notsuccess') {
+                echo "<div id='notsuccess-msg3' class='notsuccess-message'>Could not update emergency contact name - Please try again.</div>";
+              }
+            ?>
                               
                     <table id="tableprofile">
 
@@ -237,58 +237,58 @@
                       </form>
 
                       <?php
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $email = $_SESSION['email'];
+                          if (isset($_POST['submit'])) {
+                              $name = $_POST['name'];
+                              $email = $_SESSION['email'];
 
-    if (isset($_FILES['pdf_file']['name'])) {
-        $file_name = $_FILES['pdf_file']['name'];
-        $file_tmp = $_FILES['pdf_file']['tmp_name'];
+                              if (isset($_FILES['pdf_file']['name'])) {
+                                  $file_name = $_FILES['pdf_file']['name'];
+                                  $file_tmp = $_FILES['pdf_file']['tmp_name'];
 
-        // Generate a unique ID for the file
-        $file_id = uniqid();
+                                  // Generate a unique ID for the file
+                                  $file_id = uniqid();
 
-        // Check if a CV already exists for the user
-        $sql = "SELECT * FROM pdf_data WHERE email = '$email'";
-        $result = mysqli_query($linkDB, $sql);
-        $row = mysqli_fetch_array($result);
+                                  // Check if a CV already exists for the user
+                                  $sql = "SELECT * FROM pdf_data WHERE email = '$email'";
+                                  $result = mysqli_query($linkDB, $sql);
+                                  $row = mysqli_fetch_array($result);
 
-        if ($row) {
-            // Delete the old CV file from the server
-            $old_file = $row['filename'];
-            $old_file_path = "../pdf/".$old_file;
-            if (file_exists($old_file_path)) {
-                unlink($old_file_path);
-            }
-            
-            // Update the filename and file ID in the database and upload the new CV file to the server
-            $query = "UPDATE pdf_data SET username = '$name', filename = '$file_name', file_id = '$file_id' WHERE email = '$email'";
-            move_uploaded_file($file_tmp, "../pdf/".$file_id.$file_name);
-        } else {
-            // Insert a new row in the database and upload the new CV file to the server
-            $query = "INSERT INTO pdf_data(username, filename, email, file_id) VALUES('$name', '$file_name', '$email', '$file_id')";
-            move_uploaded_file($file_tmp, "../pdf/".$file_id.$file_name);
-        }
+                                  if ($row) {
+                                      // Delete the old CV file from the server
+                                      $old_file = $row['filename'];
+                                      $old_file_path = "../pdf/".$old_file;
+                                      if (file_exists($old_file_path)) {
+                                          unlink($old_file_path);
+                                      }
+                                      
+                                      // Update the filename and file ID in the database and upload the new CV file to the server
+                                      $query = "UPDATE pdf_data SET username = '$name', filename = '$file_name', file_id = '$file_id' WHERE email = '$email'";
+                                      move_uploaded_file($file_tmp, "../pdf/".$file_id.$file_name);
+                                  } else {
+                                      // Insert a new row in the database and upload the new CV file to the server
+                                      $query = "INSERT INTO pdf_data(username, filename, email, file_id) VALUES('$name', '$file_name', '$email', '$file_id')";
+                                      move_uploaded_file($file_tmp, "../pdf/".$file_id.$file_name);
+                                  }
 
-        $res = mysqli_query($linkDB, $query);
-    } 
-}
+                                  $res = mysqli_query($linkDB, $query);
+                              } 
+                          }
 
 
-// Retrieve the pdf from the database
-$folder = "../pdf/";
-$sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
-$result = mysqli_query($linkDB, $sql);
-$row = mysqli_fetch_array($result);
-if ($row) {
-    $file_id = $row['file_id'];
-    $filename = $row['filename'];
-    // code to display the pdf
-    echo '<embed src="'.$folder.$file_id.$filename.'" type="application/pdf" width="100%" height="590px"/>';
-} else {
-    echo "CV not found for the given email.";
-}
-?>
+                          // Retrieve the pdf from the database
+                          $folder = "../pdf/";
+                          $sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
+                          $result = mysqli_query($linkDB, $sql);
+                          $row = mysqli_fetch_array($result);
+                          if ($row) {
+                              $file_id = $row['file_id'];
+                              $filename = $row['filename'];
+                              // code to display the pdf
+                              echo '<embed src="'.$folder.$file_id.$filename.'" type="application/pdf" width="100%" height="590px"/>';
+                          } else {
+                              echo "CV not found for the given email.";
+                          }
+                      ?>
 
 
 
@@ -332,184 +332,7 @@ if ($row) {
         }
 </script>
 
-<script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
-<script>
-function openForm2() {
-  document.getElementById("myForm2").style.display = "block";
-}
-
-function closeForm2() {
-  document.getElementById("myForm2").style.display = "none";
-}
-</script>
-<script>
-function openForm3() {
-  document.getElementById("myForm3").style.display = "block";
-}
-
-function closeForm3() {
-  document.getElementById("myForm3").style.display = "none";
-}
-</script>
-
-<?php
-if(isset($_POST['update'])) {
-$phone=$_POST['phone'];
-$var = $_SESSION['email'];
-
-$query = "UPDATE users SET phone=$phone WHERE email = '".$var."' ";
-
-$res = mysqli_query($linkDB, $query); 
-
-if($res){
-  echo "<script>window.location.href='coachprofile.php'; </script>";
-
-}
-else{
-  echo "Could not update the profile - please try again.";
-}
-
-}
-?>
-
-<?php
-if(isset($_POST['update2'])) {
-$emphone=$_POST['emphone'];
-$var = $_SESSION['email'];
-
-$query = "UPDATE users SET emphone=$emphone WHERE email = '".$var."' ";
-
-$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
-
-if($res){
-  echo "<script>window.location.href='coachprofile.php'; </script>";
-
-}
-else{
-  echo "Could not update the profile - please try again.";
-}
-}
-?>
-
-<?php
-if(isset($_POST['update3'])) {
-$emname=$_POST['emname'];
-$var = $_SESSION['email'];
-
-$query = "UPDATE users SET emname= '$emname' WHERE email = '".$var."' ";
-
-$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
-    
-if($res){
-  echo "<script>window.location.href='coachprofile.php'; </script>";
-
-}
-else{
-  echo "Could not update the profile - please try again.";
-}
-
-}
-?>
-
-<script>
-// Open the popup
-function openPopup1() {
-  document.getElementById("popup1").style.display = "block";
-}
-
-// Close the popup
-function closePopup1() {
-  document.getElementById("popup1").style.display = "none";
-}
-</script>
-
-<div id="popup1" class="popup1">
-  <div class="popup-content" >
-    <span class="close" onclick="closePopup1()">&times;</span>
-    <h3>Change Phone Number</h3>
-    <form method="post" action="updateprofile.php" >
-    
-      <label for='phone'>Update Phone</label>
-      <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
-                                    
-      <input type='submit' class='btn' id='update-btn' name='update1' value='Update'>
-
-    </form>
-  </div>
-</div>
-
-<script>
-// Open the popup
-function openPopup2() {
-  document.getElementById("popup2").style.display = "block";
-}
-
-// Close the popup
-function closePopup2() {
-  document.getElementById("popup2").style.display = "none";
-}
-</script>
-
-<div id="popup2" class="popup2">
-  <div class="popup-content">
-    <span class="close" onclick="closePopup2()">&times;</span>
-    <h3>Change Emergency Contact Number</h3>
-    <form method="post" action="updateprofile.php" >
-    
-      <label for='emphone'>Update Contact Number</label>
-      <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
-                                    
-      <input type='submit' class='btn' id='update-btn' name='update2' value='Update'>
-
-    </form>
-  </div>
-</div>
-
-<script>
-// Open the popup
-function openPopup3() {
-  document.getElementById("popup3").style.display = "block";
-}
-
-// Close the popup
-function closePopup3() {
-  document.getElementById("popup3").style.display = "none";
-}
-</script>
-
-<div id="popup3" class="popup3">
-  <div class="popup-content">
-    <span class="close" onclick="closePopup3()">&times;</span>
-    <h3>Change Emergency Contact Number</h3>
-    <form method="post" action="updateprofile.php" >
-
-      <label for='emname'>Update Contact Name</label>
-      <input type='text' placeholder='Enter name' name='emname' required>
-                                    
-      <input type='submit' class='btn' id='update-btn' name='update3' value='Update'>
-
-    </form>
-  </div>
-</div>
-
-<script>
-        let input = document.getElementById("inputTag");
-        let imageName = document.getElementById("imageName")
-
-        input.addEventListener("change", ()=>{
-            let inputImage = document.querySelector("input[type=file]").files[0];
-
-            imageName.innerText = inputImage.name;
-        })
-</script>
+                              /*change password popup*/
 
 <script>
 // Open the popup
@@ -542,3 +365,167 @@ function closePopup() {
     </form>
   </div>
 </div>
+
+<script>
+// Open the popup
+function openPopup1() {
+  document.getElementById("popup1").style.display = "block";
+}
+
+// Close the popup
+function closePopup1() {
+  document.getElementById("popup1").style.display = "none";
+}
+</script>
+
+<div id="popup1" class="popup1">
+  <div class="popup-content" >
+    <span class="close" onclick="closePopup1()">&times;</span>
+    <h3>Change Phone Number</h3>
+    <form method="post" action="updateprofile.php" >
+    
+      <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
+                                    
+      <input type='submit' class='btn' id='update-btn' name='update1' value='Update'>
+
+    </form>
+  </div>
+</div>
+
+<script>
+// Open the popup
+function openPopup2() {
+  document.getElementById("popup2").style.display = "block";
+}
+
+// Close the popup
+function closePopup2() {
+  document.getElementById("popup2").style.display = "none";
+}
+</script>
+
+<div id="popup2" class="popup2">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup2()">&times;</span>
+    <h3>Change Emergency Contact Number</h3>
+    <form method="post" action="updateprofile.php" >
+    
+      <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
+                                    
+      <input type='submit' class='btn' id='update-btn' name='update2' value='Update'>
+
+    </form>
+  </div>
+</div>
+
+<script>
+// Open the popup
+function openPopup3() {
+  document.getElementById("popup3").style.display = "block";
+}
+
+// Close the popup
+function closePopup3() {
+  document.getElementById("popup3").style.display = "none";
+}
+</script>
+
+<div id="popup3" class="popup3">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup3()">&times;</span>
+    <h3>Change Emergency Contact Number</h3>
+    <form method="post" action="updateprofile.php" >
+
+      <input type='text' placeholder='Enter name' name='emname' required>
+                                    
+      <input type='submit' class='btn' id='update-btn' name='update3' value='Update'>
+
+    </form>
+  </div>
+</div>
+
+<script>
+        let input = document.getElementById("inputTag");
+        let imageName = document.getElementById("imageName")
+
+        input.addEventListener("change", ()=>{
+            let inputImage = document.querySelector("input[type=file]").files[0];
+
+            imageName.innerText = inputImage.name;
+        })
+</script>
+
+                                  /* Timeouts of msgs */
+
+                                  /* change password */
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    var unsuccessMessage = document.getElementById('unsuccess-message');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+    if (unsuccessMessage) {
+        unsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+                                /* change phone number */
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-msg1');
+    var notsuccessMessage = document.getElementById('notsuccess-msg1');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+                                /* change emergency contact number */
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-msg2');
+    var notsuccessMessage = document.getElementById('notsuccess-msg2');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+                                /* change emergency contact name */
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-msg3');
+    var notsuccessMessage = document.getElementById('notsuccess-msg3');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
