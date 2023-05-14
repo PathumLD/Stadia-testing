@@ -41,7 +41,7 @@ session_start();
                 right:'agendaWeek,month'
             },
             defaultView: 'agendaWeek',
-            events: 'adminslotbasketballload.php',
+            events: 'adminslotbadminton1load.php',
             views: {
                 month: {
                   selectable: false
@@ -53,19 +53,18 @@ session_start();
                   maxTime: '22:00:00'
                 }
             },
-            selectable:true,
-            selectHelper:true,
-            select: function(start, end, allDay)
-            {
-              var today = moment().startOf('day');
-              var now = moment();
+                 selectable: true,
+                selectHelper: true,
+                select: function(start, end, allDay)
+                {
+                  var today = moment().startOf('day');
+                  var selectedDate = moment(start).startOf('day');
 
-              // check if the selected start time is before the current time + 30 minutes
-              var threshold = moment().add(30, 'minutes');
-              if (start < threshold) {
-                alert("Cannot add booking for past or current time slots.");
-                return;
-              }
+                  // check if the selected date is before today's date
+                  if (selectedDate < today) {
+                    alert("Cannot add booking for past dates.");
+                    return;
+                  }
 
               // check if the selected start time is within the next 3 months
               var maxDate = moment().add(3, 'months');
@@ -108,7 +107,7 @@ session_start();
                 var slotEndDate = $.fullCalendar.formatDate(moment(slotStart).add(1, 'hour'), "Y-MM-DD HH:mm:ss");
 
                 $.ajax({
-                  url:"adminslotbasketballinsert.php",
+                  url:"adminslotbadminton1insert.php",
                   type:"POST",
                   data:{title:slotTitle, start:slotStartDate, end:slotEndDate},
                   success:function() {
@@ -152,7 +151,7 @@ session_start();
                 }
 
                 $.ajax({
-                  url:"adminslotbasketballupdate.php",
+                  url:"adminslotbadminton1update.php",
                   type:"POST",
                   data:{title:title, start:start, end:end, id:id},
                   success:function(){
@@ -207,7 +206,7 @@ session_start();
 
                   // if the new slot is available, update the event's start and end time
                   $.ajax({
-                    url:"adminslotbasketballupdate.php",
+                    url:"adminslotbadminton1update.php",
                     type:"POST",
                     data:{title:title, start:start, end:end, id:id},
                     success:function(){
@@ -217,7 +216,7 @@ session_start();
                   });
               },
 
-              eventClick:function(event)
+            eventClick:function(event)
               {
                 
                 
@@ -241,7 +240,7 @@ session_start();
                   {
                       var id = event.id;
                       $.ajax({
-                          url:"adminslotbasketballdelete.php",
+                          url:"adminslotbadminton1delete.php",
                           type:"POST",
                           data:{id:id},
                           success:function()
@@ -261,74 +260,82 @@ session_start();
       });
     </script>
 
-</head>
-
+   </head>
 <body onload="initClock()">
 
-  <div class="sidebar">
+<div class="sidebar">
 
     <?php include('../include/adminsidebar.php'); ?>
 
-  </div>
+</div>
 
-  <section class="home-section">
+<section class="home-section">
 
     <nav>
 
-      <?php include('../include/adminnavbar.php'); ?>
+        <?php include('../include/adminnavbar.php'); ?>
 
     </nav>
 
     <div class="home-content">
 
-      <div class="main-content">
-      <?php $var = $_SESSION['email']; ?>   
+        <div class="main-content">    
 
-        <div class="content">
-          <h1>Slots - Basketball </h1>
+        <?php $var = $_SESSION['email']; ?>    
 
-         
+            <div class="content">
+            <h1>Slots - Badminton 1 </h1>
 
-          <div class="content">
-
-            <div class="container">
-              <div id="calendar"></div>
+            <div class="segmented-control">
+              
+              <input type="radio" name="radio2" value="1" id="tab-1" checked/>
+              <label for="tab-1" class= "segmented-control__1">
+                <p><a href="adminslotbadminton1.php">Court 1</a></p>
+              </label>
+                              
+              <input type="radio" name="radio2" value="2" id="tab-2" />
+              <label for="tab-2" class= "segmented-control__2">
+                <p><a href="adminslotbadminton2.php">Court 2</a></p>
+              </label>
+              
+              <div class="segmented-control__color"></div>
             </div>
 
+          <div class="container">
+            <div id="calendar"></div>
           </div>
 
         </div>
 
       </div>
+
   </div>
 
+    <footer>
+            <div class="foot">
+                <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
+            </div>
+        </footer>
 
-      <footer>
-        <div class="foot">
-          <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
-        </div>
-      </footer>
-
-  </section>
+</section>
 
 </body>
-
 </html>
 
 <script>
-  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-  var dropdown = document.getElementsByClassName("dropdown-btn");
-  var i;
-
-  for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function () {
-      this.classList.toggle("active");
-      var dropdownContent = this.nextElementSibling;
-      if (dropdownContent.style.display === "block") {
-        dropdownContent.style.display = "none";
-      } else {
-        dropdownContent.style.display = "block";
-      }
-    });
-  }
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+        
+        for (i = 0; i < dropdown.length; i++) {
+          dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+              dropdownContent.style.display = "none";
+            } else {
+              dropdownContent.style.display = "block";
+            }
+          });
+        }
 </script>

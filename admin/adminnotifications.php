@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?>
 
 
@@ -40,38 +41,72 @@
         <div class="home-content">
 
             <div class="main-content">
-            
-                
-            <h1>My Notifications</h1>
 
+
+                <?php $var = $_SESSION['email']; ?>
                 <div class="content">
+                    <h1 style="margin-left: 10px;">My Notifications</h1>
 
-                    <table class="table" id="noti">
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                    </table>
+                    <form method="post">
+                        <div class="container">
+                            <?php if (!empty($error2))
+                                echo "<div class='error'>$error2</div>"; ?>
+                            <?php
+                            // Check if the user is logged in
+                            if (isset($_SESSION["email"])) {
+                                // Get the email of the logged in user
+                                $email = $_SESSION["email"];
 
-                    <div class="button">
-                        <a href="#"> Clear All Notifications </a>
-                    </div>
+                                // Query the notifications table for the specified email address
+                                $query = "SELECT * FROM notifications WHERE email = '$email'";
+                                $result = mysqli_query($linkDB, $query);
 
+                                // Check if there are any notifications for the current user
+                                if (mysqli_num_rows($result) > 0) {
+                                    echo "<table class='table'>";
+                                    echo "<thead><tr><th>Id</th><th>Message</th><th>Date</th><th>Action</th></tr></thead>";
+                                    echo "<tbody>";
+                                    // Loop through the query result and display the notifications in a table
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row["id"] . "</td>";
+                                        echo "<td>" . $row["message"] . "</td>";
+                                        echo "<td>" . $row["created_at"] . "</td>";
+                                        echo "<td><a href='#' onclick='deleteNotification(this)' data-id='" . $row["id"] . "'><i class='fa fa-trash'></i></a></td>";
+                                        echo "</tr>";
+                                    }
+                                    echo "</tbody></table>";
+                                } else {
+                                    $error2 = "No notifications found.";
+                                }
+                            } else {
+                                $error2 = "Please log in to view your notifications.";
+                            }
+                            ?>
+
+                            <script>
+                                function deleteNotification(element) {
+                                    var id = element.getAttribute('data-id');
+                                    var formData = new FormData();
+                                    formData.append('id', id);
+                                    fetch('delete_notification.php', {
+                                        method: 'POST',
+                                        body: formData
+                                    }).then(function (response) {
+                                        element.closest('tr').remove();
+                                    }).catch(function (error) {
+                                        console.log(error);
+                                    });
+                                }
+                            </script>
+                    </form>
                 </div>
 
+
+
             </div>
+
+        </div>
         </div>
         <footer>
             <div class="foot">
@@ -82,6 +117,7 @@
     </section>
 
 </body>
+
 </html>
 <script>
     /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */

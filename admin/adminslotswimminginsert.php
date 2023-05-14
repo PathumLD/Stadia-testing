@@ -4,20 +4,26 @@
 
 $connect = new PDO('mysql:host=127.0.0.1:3300;dbname=stadia-new', 'root', '');
 
+
+session_start(); // Start the session
+
 if(isset($_POST["title"]))
 {
  $query = "
- INSERT INTO adminslotswimming
- (day, start_time, end_time) 
- VALUES (:day, :start_time, :end_time)
+ INSERT INTO slots_swimming 
+ (title, start_event, end_event, email) 
+ VALUES (:title, :start_event, :end_event, :email)
  ";
  $statement = $connect->prepare($query);
  $statement->execute(
   array(
-   ':day'  => $_POST['day'],
-   ':start_time' => $_POST['start_time'],
-   ':end_time' => $_POST['end_time']
+   ':title'  => $_POST['title'],
+   ':start_event' => $_POST['start'],
+   ':end_event' => $_POST['end'],
+   ':email' => $_SESSION['email'] // Use the email address from the session
   )
  );
 }
+
+
 ?>

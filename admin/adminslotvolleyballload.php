@@ -6,7 +6,7 @@ $connect = new PDO('mysql:host=127.0.0.1:3300;dbname=stadia-new', 'root', '');
 
 $data = array();
 
-$query = "SELECT * FROM slots_volleyball ORDER BY id";
+$query = "SELECT * FROM slots_volleyball WHERE status = 1 ORDER BY id";
 
 $statement = $connect->prepare($query);
 
@@ -18,9 +18,10 @@ foreach($result as $row)
 {
  $data[] = array(
   'id'   => $row["id"],
-  'day'   => $row["day"],
-  'start_time'   => $row["start_time"],
-  'end_time'   => $row["end_time"]
+  'title'   => $row["title"],
+  'start'   => $row["start_event"],
+  'end'   => $row["end_event"],
+  'email' => $row['email']
  );
 }
 

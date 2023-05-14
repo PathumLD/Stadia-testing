@@ -10,12 +10,12 @@ if(isset($_POST["id"]))
  $id = mysqli_real_escape_string($linkDB, $_POST['id']);
 
  // Update the status of the slot to cancelled
- $query = "UPDATE slots_volleyball SET status = 2 WHERE id = '$id'";
+ $query = "UPDATE slots_badminton1 SET status = 2 WHERE id = '$id'";
  mysqli_query($linkDB, $query);
 
  // Retrieve the email addresses of clients who booked the cancelled slot
  $query = "SELECT DISTINCT email, DATE(start_event) AS cancelled_date
-           FROM slots_volleyball
+           FROM slots_badminton1
            WHERE status = 2 AND start_event >= NOW()";
  $result = mysqli_query($linkDB, $query);
 
@@ -38,3 +38,5 @@ if(isset($_POST["id"]))
  mysqli_close($linkDB);
 }
 ?>
+
+

@@ -4,12 +4,13 @@
 
 $connect = new PDO('mysql:host=127.0.0.1:3300;dbname=stadia-new', 'root', '');
 
+
 session_start(); // Start the session
 
 if(isset($_POST["id"]))
 {
  $query = "
- UPDATE slots_tennis 
+ UPDATE slots_badminton1
  SET title=:title, start_event=:start_event, end_event=:end_event 
  WHERE id=:id AND email=:email
  ";

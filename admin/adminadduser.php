@@ -126,7 +126,7 @@ $result = mysqli_query($linkDB, $query);
 $count =mysqli_num_rows($result);
 
 if ($count > 0) {
-  echo '<span class="error"> *User Already Exist , Please try another username</span>';
+  echo '<span class="error-new"> *User Already Exist , Please try another username</span>';
 
 } else {
 

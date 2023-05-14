@@ -6,7 +6,7 @@ $connect = new PDO('mysql:host=127.0.0.1:3300;dbname=stadia-new', 'root', '');
 
 $data = array();
 
-$query = "SELECT * FROM slots_basketball WHERE status = 1 ORDER BY id";
+$query = "SELECT * FROM slots_badminton1 WHERE status = 1 ORDER BY id";
 
 $statement = $connect->prepare($query);
 
@@ -28,3 +28,5 @@ foreach($result as $row)
 echo json_encode($data);
 
 ?>
+
+
