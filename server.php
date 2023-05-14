@@ -61,6 +61,7 @@ if (array_key_exists("signUp", $_POST)) {
 
 
 //user login code
+//user login code
 
 
 // Database Link
@@ -80,36 +81,7 @@ if (array_key_exists("logIn", $_POST)) {
         $result = mysqli_query($linkDB, $query);
 
         if (mysqli_num_rows($result) == 0) {
-            // Email not found in users table
-            $error2 = "<h3> You haven't signed up using this email! </h3>";
-        } else {
-            // Email found in users table
-            $query = "SELECT * FROM users WHERE email='$email'";
-            $result = mysqli_query($linkDB, $query);
-            $row = mysqli_fetch_array($result);
-            $verify = md5($password);
-            if (count($row)) {
-                //matching email and password
-                if ($verify == $row['password']) {
-                    //session variables to keep user logged in
-                    $_SESSION['email'] = $row['email'];
-
-                    if ($row['type'] == 'client') {
-                        // Redirect to client dashboard
-                        header('Location: clientdashboard.php');
-                        exit();
-                    } else if ($row['type'] == 'coach') {
-                        // Redirect to coach dashboard
-                        header('Location: coachdashboard.php');
-                        exit();
-                    }
-                } else {
-                    $error2 = "<h3>Invalid email or password</h3>";
-                }
-            }
-        }
-
-        // Check if email exists in adminuser table
+            // Check if email exists in adminuser table
         $query = "SELECT email FROM adminuser WHERE email = '$email'";
         $result = mysqli_query($linkDB, $query);
 
@@ -130,7 +102,7 @@ if (array_key_exists("logIn", $_POST)) {
                     $_SESSION['email'] = $row['email'];
                     if ($row['type'] == 'admin') {
                         // Redirect to admin dashboard
-                        header('Location: ./admin/admindashboard.php');
+                        header('Location: admin/admindashboard.php');
                         exit();
                     } else if ($row['type'] == 'Manager') {
                         // Redirect to manager dashboard
@@ -138,11 +110,11 @@ if (array_key_exists("logIn", $_POST)) {
                         exit();
                     } else if ($row['type'] == 'external supplier') {
                         // Redirect to supplier dashboard
-                        header('Location: ./exsupplier/supplierdashboard.php');
+                        header('Location: exsupplier/supplierdashboard.php');
                         exit();
                     } else if ($row['type'] == 'Equipment Manager') {
                         // Redirect to equipment manager dashboard
-                        header('Location: equipmentdashboard.php');
+                        header('Location: eqmanager/emdashboard.php');
                         exit();
                     }
                 } else {
@@ -150,7 +122,36 @@ if (array_key_exists("logIn", $_POST)) {
                 }
             }
         }
+        } else {
+            // Email found in users table
+            $query = "SELECT * FROM users WHERE email='$email'";
+            $result = mysqli_query($linkDB, $query);
+            $row = mysqli_fetch_array($result);
+            $verify = md5($password);
+            if (count($row)) {
+                //matching email and password
+                if ($verify == $row['password']) {
+                    //session variables to keep user logged in
+                    $_SESSION['email'] = $row['email'];
+
+                    if ($row['type'] == 'client') {
+                        // Redirect to client dashboard
+                        header('Location: client/clientdashboard.php');
+                        exit();
+                    } else if ($row['type'] == 'coach') {
+                        // Redirect to coach dashboard
+                        header('Location: coach/coachdashboard.php');
+                        exit();
+                    }
+                } else {
+                    $error2 = "<h3>Invalid email or password</h3>";
+                }
+            }
+        }
+
+        
     }
 }
+
 
 ?>
