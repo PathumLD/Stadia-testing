@@ -1,0 +1,43 @@
+.home-content .main-content .content .table{
+  width: 100%;
+  margin: 3% auto;
+  max-width: 1200px;
+  text-align: center;
+  border: #6d9976 2px solid;
+  border-radius: 20px;
+  border-collapse: collapse;
+}
+  
+.home-content .main-content .content .table th{
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  background: #6d9976;
+  color: #000;
+  text-align: center;
+}
+  
+.home-content .main-content .content .table td{
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+}
+
+.home-content .main-content .content .table tr{
+  background-color: #fff;
+}
+  
+.home-content .main-content .content .table a{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+}
+  
+.home-content .main-content .content .table a:hover{
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  padding: 0px;
+  /* font-size: 1.1rem; */
+}

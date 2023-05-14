@@ -123,6 +123,7 @@
 .table td a{
     text-decoration: none;
     color: black;
+    font-weight:550;
 }
 
 .table td a:hover, .table td a i:hover{
