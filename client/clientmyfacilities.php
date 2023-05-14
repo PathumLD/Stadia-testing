@@ -120,8 +120,8 @@
                                           <td>" . date('H:i', strtotime($rows["time"])). "</td>
                                           <td>" . $rows["itemname"].  "</td>
                                           <td>" . $rows["quantity"]."</td>
-                                          <td> <button class='submit-button' onclick='confirmRowData($id)' $disabled><i class='fa fa-trash'></i></button> </td>
-                                        </tr>";
+`                                          <td> <button class='submit-button' onclick='confirmRowData($id)' $disabled><i class='fa fa-trash'></i></button> </td>
+`                                        </tr>";
                               }
                           } else {
                               echo "0 results";
@@ -196,7 +196,7 @@
                                                   <td>" . date('H:i', strtotime($rows["time"])). "</td>
                                                   <td>" . $rows["itemname"]. "</td>
                                                   <td>" . $rows["quantity"]. "</td>
-                                                  <td><button class='submit-button' onclick='confirmRowData2($id) $disabled'><i class='fa fa-trash'></i></button></td>
+                                                  <td><button class='submit-button' onclick='confirmRowData2($id)' $disabled><i class='fa fa-trash'></i></button></td>
                                               </tr>";
                                       }
                                   } else {
