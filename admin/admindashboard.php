@@ -1,3 +1,4 @@
+
 <?php include("../linkDB.php"); //database connection function 
 
 /*queries for the boxes*/
@@ -114,8 +115,9 @@ JOIN (
   SELECT itemid, itemname FROM refreshments_snacks
   UNION ALL
   SELECT itemid, itemname FROM refreshments_drinks
-) r ON o.product_id = r.itemid AND o.type = 'refreshment'
+) r ON o.product_id = r.itemid AND (o.type = 'drink' OR o.type='snack') 
 GROUP BY r.itemname";
+
 
 $result = mysqli_query($linkDB, $query);
 
