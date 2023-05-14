@@ -8,7 +8,7 @@
     border-radius: 20px;
     width: 15rem;
     margin-left: 10rem;
-    margin-top: 2rem;
+    /* margin-top: 2%; */
   }
   
   .home-content .main-content .content #searchbtn{
@@ -94,64 +94,6 @@
     background-color: #c4d4cc;
 }
 
-.home-content .main-content .content .form input{
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    max-width: 30rem;
-    font-weight: 400;
-    border: 2px solid #6d9976;
-    border-radius: 1.3rem;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    resize: vertical;
-}
-
-.home-content .main-content .content .form .btn{
-    width: 80%;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 4px 12px;
-    margin-left: 18rem;
-    color: #fff;
-    background: #3B6E51;
-    border: 0;
-    border-radius: 20px;
-    font-size: 15px;
-    font-weight: 400;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.home-content .main-content .content .form .btn:hover{
-    background:  #264838;
-    cursor: pointer;
-}
-
-.home-content .main-content .content .button{
-    width: 75%;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 3rem;
-    margin-left: 10rem;
-}
-
-.home-content .main-content .content .button a{
-    color: #fff;
-    background: #3B6E51;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    border-radius: 0.3rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.home-content .main-content .content .button a:hover{
-    background:  #264838;
-    cursor: pointer;
-}
-  
   /* confirm cancel popup css */
   
   .home-section .home-content .main-content .content table button{
@@ -228,7 +170,7 @@
     overflow-y: auto;
     background-color: #ffffff;
     width: 50%;
-    height: 33rem;
+    height: 35rem;
     border-radius: 20px;
     margin-left: 2rem;
     margin-top: 2rem;
@@ -240,20 +182,24 @@
     flex-direction: column;
     float: right;
     width: 45%;
-    height: 33rem;
+    height: 35rem;
     margin-right: 2rem;
-    margin-top: -33rem;
+    margin-top: -35rem;
     margin-bottom: 2rem;
     border-radius: 20px;
+
   }
   
-  .right .top {
+ .content .right .top {
+    height: 20%;
     flex: 1;
     border-radius: 20px;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
   }
 
-  .right .bottom{
+ .bottom{
+    height: 60%;
+    overflow-y: auto;
     flex: 1;
     border-radius: 20px;
     margin-top: 20px;
@@ -301,3 +247,204 @@
     margin-right: 2rem;
     margin-left: 2rem;
   }
+
+/* Add equipment */
+
+  
+.right  form input{
+    width: 40%;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #6d9976;
+    border-radius: 1.3rem;
+    margin-left: 7%;
+    margin-top: 3%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+  
+.right  form .btn{
+    background: #264838;
+    background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+    border: none;
+    width: 50%;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    outline: none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 25%;
+    box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+  }
+  
+  .right  form .btn:before {
+      height: 0%;
+      width: 2px;
+  }
+    
+  .right  form .btn:hover {
+      box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                  -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+        inset -4px -4px 6px 0 rgba(255,255,255,.2),
+        inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }
+  
+
+/* confirm cancel popup css */
+
+.home-section .home-content .main-content .content table button{
+    background:none;
+    border: 0;
+    font-size: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .confirm-box {
+    width: 30rem;
+    position: fixed;
+    max-width: 30rem;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .confirm-box h2, .confirm-box h4{
+    text-align: center;
+    text-justify: inter-word;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+  
+  .confirm-box ul {
+    list-style: disc;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .confirm-box li {
+    margin-bottom: 10px;
+  }
+  
+  .confirm-box button {
+    margin-top: 10px;
+    margin: 10px;
+    background-color: #3B6E51;
+    color: #fff;
+    padding: 2% 6%;
+    border: 0;
+    border-radius: 20px;
+    font-size: 18px;
+  }
+  
+  .confirm-box button:hover{
+    cursor: pointer;
+    background-color: #264838;
+  }
+  
+  .confirm-box #cancel-button{
+    float: right;
+    background-color: red;
+  }
+  
+  .submit-button i {
+    margin-right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+   /* CSS for popup */
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+    
+  .popup-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+    
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .popup h2{
+    text-align: center;
+    text-justify: inter-word;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+    
+  .close:hover, .close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+  }
+    
+  input[type=number]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+    
+  .popup .btn{
+    background: #264838;
+    background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+    border: none;
+    width: 80%;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    outline: none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+  }
+  
+  .popup .btn:before {
+      height: 0%;
+      width: 2px;
+  }
+    
+  .popup .btn:hover {
+      box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                  -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+        inset -4px -4px 6px 0 rgba(255,255,255,.2),
+        inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }  
