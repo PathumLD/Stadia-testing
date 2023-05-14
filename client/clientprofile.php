@@ -299,8 +299,7 @@ function closePopup1() {
     <span class="close" onclick="closePopup1()">&times;</span>
     <h3>Change Phone Number</h3>
     <form method="post" action="update_profile.php" >
-    
-      <label for='phone'>Update Phone</label>
+
       <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
                                     
       <input type='submit' class='btn' id='update-btn' name='update1' value='Update'>
@@ -327,7 +326,6 @@ function closePopup2() {
     <h3>Change Emergency Contact Number</h3>
     <form method="post" action="update_profile.php" >
     
-      <label for='emphone'>Update Contact Number</label>
       <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
                                     
       <input type='submit' class='btn' id='update-btn' name='update2' value='Update'>
@@ -354,7 +352,6 @@ function closePopup3() {
     <h3>Change Emergency Contact Number</h3>
     <form method="post" action="update_profile.php" >
 
-      <label for='emname'>Update Contact Name</label>
       <input type='text' placeholder='Enter name' name='emname' required>
                                     
       <input type='submit' class='btn' id='update-btn' name='update3' value='Update'>

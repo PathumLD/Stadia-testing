@@ -45,25 +45,45 @@
 
                 <div class="content">
 
-                    <form method="post" >
-                        <table class="table" id="noti">
+                    <form method="post">
+                            <div class="container">
+                                <?php if (!empty($error2))
+                                    echo "<div class='error'>$error2</div>"; ?>
                                 <?php
-                                    $query = 'SELECT * FROM notifications WHERE date >= CURRENT_DATE AND status = 1';
+                                // Check if the user is logged in
+                                if (isset($_SESSION["email"])) {
+                                    // Get the email of the logged in user
+                                    $email = $_SESSION["email"];
+
+                                    // Query the notifications table for the specified email address
+                                    $query = "SELECT * FROM notifications WHERE email = '$email' AND is_read = 0";
                                     $result = mysqli_query($linkDB, $query);
+
+                                    // Check if there are any notifications for the current user
                                     if (mysqli_num_rows($result) > 0) {
+                                        echo "<table class='table'>";
+                                        echo "<thead><tr><th>Id</th><th>Message</th><th>Date</th><th>Action</th></tr></thead>";
+                                        echo "<tbody>";
+                                        // Loop through the query result and display the notifications in a table
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            echo "<tr>
-                                                    <td>" . $row['date'] . "</td>
-                                                    <td>" . $row['title'] . "</td>
-                                                </tr>";
+                                            $id = $row['id'];
+                                            echo "<tr id='row_$id'>";
+                                            echo "<td>" . $row["id"] . "</td>";
+                                            echo "<td>" . $row["message"] . "</td>";
+                                            echo "<td>" . $row["created_at"] . "</td>";
+                                            echo "<td><a href='deletenotifications.php?id=$id;'><i class='fa fa-trash'></i></a>";
+                                            echo "</tr>";
                                         }
+                                        echo "</tbody></table>";
+                                    } else {
+                                        $error2 = "No notifications found.";
                                     }
-                                    else {
-                                        echo "<i class='fa fa-bell-slash'></i>";
-                                    }
+                                } else {
+                                    $error2 = "Please log in to view your notifications.";
+                                }
                                 ?>
-                        </table>
-                    </form>
+
+                        </form>
 
                 </div>
 
