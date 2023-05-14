@@ -142,8 +142,8 @@ cursor: pointer;
 }
 
 .home-content .main-content .content #noti{
-  margin-left: 25%;
-  width: 50%;
+  margin-left: 12%;
+  width: 80%;
   margin-bottom: 2%;
   border-collapse: separate;
   border-spacing: 10px;
@@ -642,4 +642,13 @@ cursor: pointer;
 
 .content .right .bottom .sw{
   margin-left: 35%;
+}
+
+.fa-bell-slash {
+  font-size: 5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
 }
