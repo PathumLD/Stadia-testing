@@ -55,14 +55,14 @@
             }
             ?>
 
-<?php
+            <?php
               // Check if a success message is present in the URL
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'success') {
                   echo "<div id='success-mesg' class='success-message'>Complaint submitted successfully.</div>";
               }
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'notsuccess') {
                 echo "<div id='notsuccess-mesg' class='notsuccess-message'>Could not submit complaint - Please try again.</div>";
-            }
+              }
             ?>
 
             <div class="left">
