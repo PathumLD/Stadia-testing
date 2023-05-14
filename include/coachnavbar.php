@@ -1,6 +1,6 @@
 <div class="sidebar-button">
 
-        <button onclick="toggleSidebar()"><i class="fa fa-bars sidebarBtn" ></i></button>
+        <i class="fa fa-bars sidebarBtn" ></i>
         <span class="hello">
 
 <?php
@@ -71,7 +71,7 @@
       // Display the image on the web page
       echo '<img src="' . $folder . $filename . '" alt ="dp">';
       } else {
-      echo '<img src="../images/profile.jpg"> ' ;
+        echo '<img src="../img/noprofile.jpg"> ' ;
       }
     
     ?>
