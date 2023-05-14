@@ -111,7 +111,7 @@
                                     if($search == 'all') {
                                         $query = "SELECT * FROM coach_classes WHERE email='$email'";
                                     } else {
-                                        $query = "SELECT * FROM coach_classes WHERE day LIKE '%$search%' AND email='$email' AND status = '1' OR status = '2'";
+                                        $query = "SELECT * FROM coach_classes WHERE day LIKE '%$search%' AND email='$email' AND (status = '1' OR status = '2')";
                                     }
 
                                     $res = mysqli_query($linkDB, $query);
@@ -140,8 +140,6 @@
                                             echo "0 results";
                                         }
                                     }
-
-
 
                             ?>
 

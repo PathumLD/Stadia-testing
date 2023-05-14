@@ -83,7 +83,7 @@
 
                 <div class="update">
 
-                  <h3> Update </h3>
+                  <h3> Update Class </h3>
 
                   <form method="post">
                     <div><br><br>
@@ -98,32 +98,32 @@
 
 
                   <?php 
-// Check if form is submitted
-if(isset($_POST['submit'])){
-    // Get form data
-    $no_of_students = $_POST['no_of_students'];
-    // Check if no_of_students is less than or equal to 25
-    if($no_of_students <= 25) {
-        // Prepare SQL statement to update the table
-        $sql = "UPDATE coach_classes SET no_of_students = '$no_of_students' WHERE id = '$id'";
-        // Execute SQL statement
-        if (mysqli_query($linkDB, $sql)) {
-            echo "<script>window.location.href='coachclasses.php'; </script>";
-        } else {
-            echo "<div id='error-msg'>Error updating record: " . mysqli_error($linkDB) . "</div>";
-        }
-    } else {
-        echo "<div id='error-msg'>Maximum number of students is 25</div>";
-    }
-}
-?>
+                    // Check if form is submitted
+                    if(isset($_POST['submit'])){
+                        // Get form data
+                        $no_of_students = $_POST['no_of_students'];
+                        // Check if no_of_students is less than or equal to 25
+                        if($no_of_students <= 25) {
+                            // Prepare SQL statement to update the table
+                            $sql = "UPDATE coach_classes SET no_of_students = '$no_of_students' WHERE id = '$id'";
+                            // Execute SQL statement
+                            if (mysqli_query($linkDB, $sql)) {
+                                echo "<script>window.location.href='coachclasses.php'; </script>";
+                            } else {
+                                echo "<div id='error-msg'>Error updating record: " . mysqli_error($linkDB) . "</div>";
+                            }
+                        } else {
+                            echo "<div id='error-msg'>Maximum number of students is 25</div>";
+                        }
+                    }
+                  ?>
 
-<script>
-// Hide error message after 3 seconds
-setTimeout(function() {
-    document.getElementById('error-msg').style.display = 'none';
-}, 3000);
-</script>
+                    <script>
+                    // Hide error message after 3 seconds
+                    setTimeout(function() {
+                        document.getElementById('error-msg').style.display = 'none';
+                    }, 3000);
+                    </script>
 
 
 
@@ -131,7 +131,7 @@ setTimeout(function() {
 
                 <div class="request">
 
-                  <h3> Leave Request </h3>
+                  <h3> Leaving Request </h3>
 
                   <p>Enter the date that you are going to take leave</p>
 
@@ -176,7 +176,7 @@ setTimeout(function() {
 
                 <div class="delete">
 
-                  <h3> Delete </h3>
+                  <h3> Delete Class </h3>
 
                   <p>
                     The request will be accepted only at the 

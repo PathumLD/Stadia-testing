@@ -47,6 +47,24 @@
 
             <h1>Dashboard</h1>
 
+            <div class="slot1">
+
+                  <h3> Slot 01 </h3>
+
+            </div>
+
+            <div class="slot2">
+
+                  <h3> Slot 02 </h3>
+
+            </div>
+
+            <div class="slot3">
+
+                  <h3> Slot 03 </h3>
+
+            </div>
+
             <div class = "dash1">
 
                 <h2 class="head"> Today's Bookings </h2>
