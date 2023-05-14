@@ -49,72 +49,42 @@
 
             <div class = "dash1">
 
-                <h2 class="head"> Today's Schedule </h2>
+                <h2 class="head"> Today's Bookings </h2>
 
-                <table class="table1">
-
-                  <tr>
-                      <th>Start Time</th>
-                      <th>End Time</th>
-                      <th>Sport</th>   
-                  </tr>
-
-                  <?php
-if (isset($_POST['go']) || isset($_POST['go2'])) {
-  $date = isset($_POST['search']) ? $_POST['search'] : '';
-  $court = isset($_POST['court_search']) ? $_POST['court_search'] : '';
-  $whereClause = "WHERE `email` = '".$var."' AND status IN (1, 2)";
-  
-  if (!empty($date)) {
-    $whereClause .= " AND DATE(`start_event`) = '".$date."'";
-  }
-
-  if (!empty($court)) {
-    $whereClause .= " AND `sport` = '".$court."'";
-  }
-
-  $query = "SELECT MIN(`start_event`) AS min_start, MAX(`end_event`) AS max_end, `sport` FROM (
-              SELECT `start_event`, `end_event`, 'Badminton 1' AS `sport` FROM `slots_badminton1`
-              UNION SELECT `start_event`, `end_event`, 'Badminton 2' AS `sport` FROM `slots_badminton2`
-              UNION SELECT `start_event`, `end_event`, 'Basketball' AS `sport` FROM `slots_basketball`
-              UNION SELECT `start_event`, `end_event`, 'Volleyball' AS `sport` FROM `slots_volleyball`
-              UNION SELECT `start_event`, `end_event`, 'Tennis' AS `sport` FROM `slots_tennis`
-              UNION SELECT `start_event`, `end_event`, 'Swimming' AS `sport` FROM `slots_swimming`
-            ) AS `events` ".$whereClause." GROUP BY `sport` ORDER BY `min_start` ASC";
-
-  $result = mysqli_query($linkDB, $query);
-
-  if ($result && mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $start_time = date('h:i A', strtotime($row["min_start"]));
-      $end_time = date('h:i A', strtotime($row["max_end"]));
-      echo "<tr> <td>" . $start_time . " - " . $end_time . "</td> <td>" . $row["sport"] . "</td> </tr>";
-    }
-  }
-} else {
-  // No search buttons were clicked, so retrieve all data
-  $query = "SELECT MIN(`start_event`) AS min_start, MAX(`end_event`) AS max_end, `sport` FROM (
-              SELECT `start_event`, `end_event`, 'Badminton 1' AS `sport` FROM `slots_badminton1`
-              UNION SELECT `start_event`, `end_event`, 'Badminton 2' AS `sport` FROM `slots_badminton2`
-              UNION SELECT `start_event`, `end_event`, 'Basketball' AS `sport` FROM `slots_basketball`
-              UNION SELECT `start_event`, `end_event`, 'Volleyball' AS `sport` FROM `slots_volleyball`
-              UNION SELECT `start_event`, `end_event`, 'Tennis' AS `sport` FROM `slots_tennis`
-              UNION SELECT `start_event`, `end_event`, 'Swimming' AS `sport` FROM `slots_swimming`
-            ) AS `events` WHERE `start_event` >= CURRENT_DATE AND `email` = '".$var."' AND status IN (1, 2) GROUP BY `sport` ORDER BY `min_start` ASC";
-
-  $result = mysqli_query($linkDB, $query);
-
-  if ($result && mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $start_time = date('h:i A', strtotime($row["min_start"]));
-      $end_time = date('h:i A', strtotime($row["max_end"]));
-      echo "<tr> <td>" . $start_time . " - " . $end_time . "</td> <td>" . $row["sport"] . "</td> </tr>";
-    }
-  }
-}
-?>
-
-                </table>
+                <table class ="table1">
+    <tr>
+        <th> Start Time </th>
+        <th> End Time </th>
+        <th> Sport </th>
+    </tr>
+    <?php
+      $date = date('Y-m-d');
+      $whereClause = "WHERE `start_event` >= CURRENT_DATE AND events.email = ? AND DATE(`start_event`) = ?";
+      $query = "SELECT MIN(events.start_event) AS start_event, MAX(events.end_event) AS end_event, events.sport, events.email FROM (
+                  SELECT slots_badminton1.start_event, slots_badminton1.end_event, 'Badminton 1' as sport, slots_badminton1.email FROM slots_badminton1
+                  UNION SELECT slots_badminton2.start_event, slots_badminton2.end_event, 'Badminton 2' as sport, slots_badminton2.email FROM slots_badminton2
+                  UNION SELECT slots_basketball.start_event, slots_basketball.end_event, 'Basketball' as sport, slots_basketball.email FROM slots_basketball
+                  UNION SELECT slots_volleyball.start_event, slots_volleyball.end_event, 'Volleyball' as sport, slots_volleyball.email FROM slots_volleyball
+                  UNION SELECT slots_tennis.start_event, slots_tennis.end_event, 'Tennis' as sport, slots_tennis.email FROM slots_tennis
+                  UNION SELECT slots_swimming.start_event, slots_swimming.end_event, 'Swimming' as sport, slots_swimming.email FROM slots_swimming
+              ) as events ".$whereClause." GROUP BY events.sport ORDER BY events.start_event ASC";
+      $stmt = mysqli_prepare($linkDB, $query);
+      mysqli_stmt_bind_param($stmt, "ss", $var, $date);
+      mysqli_stmt_execute($stmt);
+      $result = mysqli_stmt_get_result($stmt);
+      if ($result && mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+              $start_time = date('h:i A', strtotime($row["start_event"]));
+              $end_time = date('h:i A', strtotime($row["end_event"]));
+              echo "<tr>
+                  <td>" . $start_time . "</td>
+                  <td>" . $end_time . "</td>
+                  <td>" . $row["sport"] . "</td>
+              </tr>";
+          }
+      }
+    ?>
+</table>
 
             </div>
 
