@@ -174,7 +174,6 @@ input[type=password], input[type=tel],input[type=text]{
 
 .popup-content h3{
   text-align: center;
-  text-justify: inter-word;
   margin-bottom: 10px;
   margin-top: 0;
 }
@@ -195,7 +194,7 @@ input[type=password], input[type=tel],input[type=text]{
   outline: none;
   margin-top: 2%;
   margin-bottom: 2%;
-  margin-left: 10%;
+  margin-left: 10.5rem;
   box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
