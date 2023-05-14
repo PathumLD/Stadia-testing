@@ -25,7 +25,7 @@ justify-content: space-between;
   display: none;
 }
 
-.error{
+.error-new{
   position: absolute;
   top: 39%;
   left: 42%;
@@ -106,7 +106,16 @@ transition: all 0.3s ease;
 background:  #264838;
 cursor: pointer;
 }
-
+.error {
+  background-color: #D6EFC7;
+  color: red;
+  padding: 10px;
+  border-radius: 10px;
+  width: 45%;
+  font-size: small;
+  margin-left: 0.5rem;
+  text-align: center;
+}
 .table{
   width: 100%;
   margin: 3% auto;
@@ -377,11 +386,11 @@ margin-left:750px;
 
   
   .report-generator {
-    margin: 50px auto;
+    margin: 91px auto;
     width: 80%;
     max-width: 500px;
     border: 1px solid #ccc;
-    padding: 20px;
+    padding: 52px;
     border-radius: 5px;
     text-align: center;
   }
