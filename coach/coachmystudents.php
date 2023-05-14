@@ -68,33 +68,30 @@
 
                 
 
-                    $query = "SELECT * from users 
-                                WHERE email = (SELECT client_classes.email FROM client_classes INNER JOIN coach_classes 
-                                                ON coach_classes.class_id = client_classes.class_id 
-                                                WHERE coach_classes.email = '$var') ";
-                                                
-                    $res = mysqli_query($linkDB,$query);
-                    if($res == TRUE)
-                    {
-                        $count = mysqli_num_rows($res);
-                        if($count > 0)
-                        {
-                            while($rows=mysqli_fetch_assoc($res))
-                            {
-                                $id=$rows['id'];
-                                echo "<tr id='row_id'>
-                                <td>" . $rows["fname"]. "</td>
-                                <td>" . $rows["dob"]. "</td>
-                                <td>" . $rows["gender"]. "</td>
-                                <td>" . $rows["NIC"]. "</td>
-                                <td>" . $rows["phone"]. "</td>
-                                <td>" . $rows["address"]. "</td>
-                                <td>" . $rows["emphone"]. "</td>
-                                <td>" . $rows["emname"]. "</td>
-                            </tr>"; 
-                            }
-                        }
-                    }
+$query = "SELECT * FROM users 
+WHERE email IN (SELECT client_classes.email FROM client_classes INNER JOIN coach_classes 
+                ON coach_classes.class_id = client_classes.class_id 
+                WHERE coach_classes.email = '$var')";
+$res = mysqli_query($linkDB, $query);
+
+if ($res == TRUE) {
+$count = mysqli_num_rows($res);
+if ($count > 0) {
+while ($rows = mysqli_fetch_assoc($res)) {
+  $id = $rows['id'];
+  echo "<tr id='row_id'>
+        <td>" . $rows["fname"]. "</td>
+        <td>" . $rows["dob"]. "</td>
+        <td>" . $rows["gender"]. "</td>
+        <td>" . $rows["NIC"]. "</td>
+        <td>" . $rows["phone"]. "</td>
+        <td>" . $rows["address"]. "</td>
+        <td>" . $rows["emphone"]. "</td>
+        <td>" . $rows["emname"]. "</td>
+        </tr>"; 
+}
+}
+}
                 
                 
                 ?>
