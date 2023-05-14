@@ -47,7 +47,10 @@
             <div class="content">
 
                 <table class = "searchtable">
-                    <tr><td><a href="coachaddnewclass.php" class = "text"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i>        Add Class</a></td>
+                    <tr>
+                        <td>
+                            <i class="fa fa-plus-circle" id="plus" onclick="openPopup()" style="font-size:36px;">
+                        </td>    
 
                         <td>
                             <form method="POST">
@@ -305,3 +308,103 @@
           });
         }
 </script>
+
+<script>
+// Open the popup
+function openPopup() {
+  document.getElementById("popup").style.display = "block";
+}
+
+// Close the popup
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+        <h3>Add New Class</h3>
+    <form method="POST" action="coachaddnewclass.php">
+            <select name="level" class="drop" required>
+                    <option value="" disabled selected>Level</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="pro">Pro</option>
+                </select> <br>
+
+                <select name="sport" class="drop" required>
+                    <option value="" disabled selected>Sport</option>
+                    <option value="badminton">Badminton</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="volleyball">Volleyball</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="swimming">Swimming</option>
+                </select> <br>
+
+                <select name="day" class="drop" required>
+                    <option value="" disabled selected>Day</option>
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                    <option value="sunday">Sunday</option>
+                </select> <br>
+
+                <select name="stime" class="drop" required>
+                    <option value="" disabled selected>Start Time</option>
+                    <option value="7.00">7.00</option>
+                    <option value="8.00">8.00</option>
+                    <option value="9.00">9.00</option>
+                    <option value="10.00">10.00</option>
+                    <option value="11.00">11.00</option>
+                    <option value="12.00">12.00</option>
+                    <option value="13.00">13.00</option>
+                    <option value="14.00">14.00</option>
+                    <option value="15.00">15.00</option>
+                    <option value="16.00">16.00</option>
+                    <option value="17.00">17.00</option>
+                    <option value="18.00">18.00</option>
+                    <option value="19.00">19.00</option>
+                    <option value="20.00">20.00</option>
+                    <option value="21.00">21.00</option>
+                </select> <br>
+
+                <select name="etime" class="drop" required>
+                    <option value="" disabled selected>End Time</option>
+                    
+                    <option value="8.00">8.00</option>
+                    <option value="9.00">9.00</option>
+                    <option value="10.00">10.00</option>
+                    <option value="11.00">11.00</option>
+                    <option value="12.00">12.00</option>
+                    <option value="13.00">13.00</option>
+                    <option value="14.00">14.00</option>
+                    <option value="15.00">15.00</option>
+                    <option value="16.00">16.00</option>
+                    <option value="17.00">17.00</option>
+                    <option value="18.00">18.00</option>
+                    <option value="19.00">19.00</option>
+                    <option value="20.00">20.00</option>
+                    <option value="21.00">21.00</option>
+                    <option value="22.00">22.00</option>
+                </select> <br>
+
+                <select name="age_group" class="drop" required>
+                    <option value="" disabled selected>Age Group</option>
+                    <option value="Below 12 Years">Below 12 Years</option>
+                    <option value="13 - 20 Years">13 - 20 Years</option>
+                    <option value="Above 21">Above 21</option>
+                </select> <br>
+
+                <input type="number" name="months" placeholder="Months" required min="1" max="3"> <br>
+
+
+                <input type="text" name="no_of_students" placeholder="No of Students" required> <br>
+                <input type="submit" name= "submit" value="Save" class="btn">
+
+    </form>
+  </div>
+</div>

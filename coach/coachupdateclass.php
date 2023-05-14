@@ -87,36 +87,6 @@
 
                   <form method="post">
                     <div><br><br>
-                      <select name="day" class="drop" required>
-                        <option value="" disabled selected>Day</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
-                      </select> <br><br>
-
-                      <select name="time" class="drop" required>
-                        <option value="" disabled selected>Time Slot</option>
-                        <option value="6.00 - 7.00">6.00 - 7.00</option>
-                        <option value="7.00 - 8.00">7.00 - 8.00</option>
-                        <option value="8.00 - 9.00">8.00 - 9.00</option>
-                        <option value="9.00 - 10.00">9.00 - 10.00</option>
-                        <option value="10.00 - 11.00">10.00 - 11.00</option>
-                        <option value="11.00 - 12.00">11.00 - 12.00</option>
-                        <option value="12.00 - 13.00">12.00 - 13.00</option>
-                        <option value="13.00 - 14.00">13.00 - 14.00</option>
-                        <option value="14.00 - 15.00">14.00 - 15.00</option>
-                        <option value="15.00 - 16.00">15.00 - 16.00</option>
-                        <option value="16.00 - 17.00">16.00 - 17.00</option>
-                        <option value="17.00 - 18.00">17.00 - 18.00</option>
-                        <option value="18.00 - 19.00">18.00 - 19.00</option>
-                        <option value="19.00 - 20.00">19.00 - 20.00</option>
-                        <option value="20.00 - 21.00">20.00 - 21.00</option>
-                        <option value="21.00 - 22.00">21.00 - 22.00</option>
-                      </select> <br><br>
 
                       <input type="text" class = "input" name="no_of_students" placeholder="No of Students" required> <br><br>
 
@@ -127,26 +97,34 @@
                   </div>
 
 
-                  <?php
-                      // Check if form is submitted
-                      if(isset($_POST['submit'])){
+                  <?php 
+// Check if form is submitted
+if(isset($_POST['submit'])){
+    // Get form data
+    $no_of_students = $_POST['no_of_students'];
+    // Check if no_of_students is less than or equal to 25
+    if($no_of_students <= 25) {
+        // Prepare SQL statement to update the table
+        $sql = "UPDATE coach_classes SET no_of_students = '$no_of_students' WHERE id = '$id'";
+        // Execute SQL statement
+        if (mysqli_query($linkDB, $sql)) {
+            echo "<script>window.location.href='coachclasses.php'; </script>";
+        } else {
+            echo "<div id='error-msg'>Error updating record: " . mysqli_error($linkDB) . "</div>";
+        }
+    } else {
+        echo "<div id='error-msg'>Maximum number of students is 25</div>";
+    }
+}
+?>
 
-                          // Get form data
-                          $day = $_POST['day'];
-                          $time = $_POST['time'];
-                          $no_of_students = $_POST['no_of_students'];
+<script>
+// Hide error message after 3 seconds
+setTimeout(function() {
+    document.getElementById('error-msg').style.display = 'none';
+}, 3000);
+</script>
 
-                          // Prepare SQL statement to update the table
-                          $sql = "UPDATE coach_classes SET day = '$day', time = '$time', no_of_students = '$no_of_students' WHERE id = '$id'";
-
-                          // Execute SQL statement
-                          if (mysqli_query($linkDB, $sql)) {
-                              echo "Record updated successfully";
-                          } else {
-                              echo "Error updating record: " . mysqli_error($linkDB);
-                          }
-                      }
-                  ?>
 
 
                 </div>

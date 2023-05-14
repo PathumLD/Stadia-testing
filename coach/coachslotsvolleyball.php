@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client/slots.css">
+    <link rel="stylesheet" href="../css/coach/slots.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -86,7 +86,7 @@
 
               // check if any of the slots in between the selected start and end times are already booked
               var eventOverlap = false;
-              calendar.fullCalendar('clientEvents', function(existingEvent) {
+              calendar.fullCalendar('coachEvents', function(existingEvent) {
                 if (existingEvent.start < slotEnd && existingEvent.end > slotStart) {
                   eventOverlap = true;
                   return false;
@@ -188,7 +188,7 @@
 
                   // check if the new slot is available
                   var newEventOverlap = false;
-                  calendar.fullCalendar('clientEvents', function(existingEvent) {
+                  calendar.fullCalendar('coachEvents', function(existingEvent) {
                     if (existingEvent.id !== event.id && existingEvent.start < event.end && existingEvent.end > event.start) {
                       newEventOverlap = true;
                       return false;
@@ -256,7 +256,7 @@
 
 <div class="sidebar">
 
-    <?php include('../include/clientsidebar.php'); ?>
+    <?php include('../include/coachsidebar.php'); ?>
 
 </div>
 
@@ -264,7 +264,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 

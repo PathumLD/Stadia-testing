@@ -1,0 +1,121 @@
+                            /* dash 1 */
+.dash1{
+    width: 50%;
+    height: 21rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-left: 1.5rem;
+    float: left;
+    margin-top: 20rem;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+.dash1 .head{
+    width: 96%;
+    height: 20%;
+    background-color: #D6EFC7;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 1rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    float: left;
+}
+
+.dash1 .table1{
+    width: 96%;
+    margin-left: 2% ;
+    margin-top: 10%;
+    max-width: 1200px;
+    text-align: center;
+    border: #6d9976 2px solid;
+    border-radius: 20px;
+    border-collapse: collapse;
+}
+
+.dash1 .table1 th{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    background: #6d9976;
+    color: #000;
+    text-align: center;
+}
+
+.dash1 .table1 td{
+    padding: 10px;
+    font-size: 18px;
+    color: #000;
+    text-align: center;
+}
+
+.dash1 .table1 tr{
+    background-color: #fff;
+}
+
+.dash1 .table1 tr:nth-child(odd){
+    background: #f0f0f0;
+}
+
+.dash2{
+    width: 45%;
+    height: 41rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-right: 1.5rem;
+    float: right;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+.dash2 .head{
+    width: 96.5%;
+    height: 10%;
+    background-color: #D6EFC7;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+}
+
+.dash2 #table2{
+    width: 95%;
+    margin: 0 0 0 2%;
+    max-width: 100%;
+}
+
+.dash2 #table2 tr td{
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    float: left;
+    margin-left: 40px;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.dash2 #table2 tr td:nth-child(1){
+    font-weight: bold;
+}
+
+.dash2 #table2 tr td:nth-child(1){
+    margin-left: 5rem;
+}
+
+.dash2 #table2 tr th{
+    padding: 5px;
+    background-color:#6d9976;
+    width: 10rem;
+    font-size: 18px;
+    font-weight: bold;
+    float: left;
+    margin-left: 16rem;
+    color: #000;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    border-radius: 20px;
+}
+
