@@ -63,6 +63,7 @@
               <option value="Manager">Manager</option>
                 <option value="Equipment Manager">Equipment Manager</option>
               <option value="external supplier">External supplier</option>
+              <option value="admin">Admin</option>
               
             </select>
             <br><br>
