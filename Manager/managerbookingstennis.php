@@ -75,7 +75,7 @@
           <div class="home-content">
 
               <div class="main-content">
-
+              <?php $var = $_SESSION['email']; ?>
                   
 
                   <h1>Bookings - Tennis Court</h1>

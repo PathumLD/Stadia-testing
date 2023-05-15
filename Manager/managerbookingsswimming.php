@@ -75,6 +75,7 @@
           <div class="home-content">
 
               <div class="main-content">
+              <?php $var = $_SESSION['email']; ?>
 
                   
 

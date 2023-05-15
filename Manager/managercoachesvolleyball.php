@@ -67,7 +67,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT coach, date, time, age_group, no_of_students
+                    $query = "SELECT coach, day, time, age_group, no_of_students
                     FROM coach_classes WHERE sport = 'tennis' ";
 
                     
@@ -80,7 +80,7 @@
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
                                         $coach=$rows['coach'];
-                                        $date=$rows['date'];
+                                        $date=$rows['day'];
                                         $time=$rows['time'];
                                         $age_group=$rows['age_group'];
                                         $no_of_students=$rows['no_of_students'];

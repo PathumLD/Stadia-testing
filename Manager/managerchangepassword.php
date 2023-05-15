@@ -1,7 +1,6 @@
 <?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?> 
 
-
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -44,20 +43,27 @@
 
             <div class="content">
 
-            <div class="form" id="changePassword">
-
-                <form method="POST">
-          
-                    <input type="password" name="currentpswd" placeholder="Current Password"> <br><br>
-                    <input type="password" name="newpswd" placeholder="New Password"> <br><br>
-                    <input type="password" name="confirmnewpswd" placeholder="Confirm New Password"> <br><br>
-                    <input type="submit" name="save" value="Save" class="addbtn">
                 
-                </form>
 
+                    <div class="form" id="changePassword">
+
+                        <form method="post" action="manager_updatepassword.php" >
+
+                            <input type="password" id="currentpswd" name="currentpswd" placeholder="Old Password" required><br>
+                           
+                            <input type="password" id="newpswd" name="newpswd" placeholder="New Password" required><br>
+
+                            <input type="password" id="confirmnewpswd" name="confirmnewpswd" placeholder="Confirm New Password" required><br>
+
+                            <input type="submit" value="Change Password" name="save" class="addbtn">
+
+                        </form>
+
+                    </div>
+
+                
+            
             </div>
-
-          </div>
 
         </div>
 
@@ -91,48 +97,3 @@
           });
         }
 </script>
-
-<?php
-
-if(isset($_POST['save'])){
-  
-  include('linkDB.php');  
-
-$currentpswd = $_POST['currentpswd'];
-$newpswd = $_POST['newpswd'];
-$confirmnewpswd = $_POST['confirmnewpswd'];
-
-if($newpswd!==$confirmnewpswd){
-        echo "<h3> Your Passwords does not match </h3>";
-    }
-    else{
-
-$query = "SELECT * FROM adminuser WHERE email= '".$var."' ";
-    $result = mysqli_query($linkDB, $query);
-            $row = mysqli_fetch_array($result);
-            $verify = md5($currentpswd);
-            $baba = md5($newpswd);
-            if (count($row)) {
-                
-                if ($verify==$row['password']) {
-
-                  $sql = "UPDATE adminuser SET password = '$encrypt' WHERE email = '{$_SESSION['email']}' ";
-                }
-
-$rs= mysqli_query($linkDB,$sql);
-
-if($rs){
-  echo "Password Updated";
-  echo "<script>window.location.href='http://localhost/Stadia-reawakening-main/Manager/managelogin.php'; </script>";
-}
-else{
-    echo "<p>Could not update password - please try again.</p>";
-}
-}
-else{
-  echo "<p>Could not update password - please try again.</p>";
-}
-}
-}
-
-?>

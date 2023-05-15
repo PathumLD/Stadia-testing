@@ -42,63 +42,58 @@
 
           <div class="content">
 
-            
 
-            <h1>View Orders - Equipments</h1>
+            <h1>Verify New Classes</h1>
 
-            <table class="ps">
-                <tr><td>    </td></tr>
-               <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Client Name...">
-                    <input type="submit" name="go" value="search" id = "searchbtn">
-                    <input type="submit" name="reset" value="reset" id = "resetbtn">
-                </form></td></tr>
-            </table>
+            <!-- <form method="post">
+    <input type="text" name="search" class ="search" placeholder="Coach Name...">
+    <input type="submit" name="go" value="search" id = "searchbtn">
+    <a href="managercoaches.php"><input type="submit" name="reset" value="reset" id = "resetbtn"></a>
+</form> -->
+
 
             <table class="table">
 
                 <tr>
 
-
+                <th>Class Id</th>
                 <th>Date</th>
-                <th>Product</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Show Details</th>
+                <th>Verify</th>
 
                 </tr>
 
                 <?php
-    $query = "SELECT o.product_id, o.id, o.date, CONCAT(u.fname, ' ', u.lname) AS name, u.email
-    FROM orders o
-    INNER JOIN users u ON o.email = u.email
-    WHERE o.type = 'equipment' AND o.status = 1;";
-    $res = mysqli_query($linkDB, $query); 
-    if($res == TRUE) 
-    {
-        $count = mysqli_num_rows($res); //calculate number of rows
-        if($count > 0)
-        {
-            while($rows = mysqli_fetch_assoc($res))
-            {
-              $date = $rows['date'];
-              $product_id = $rows['product_id'];
-              $name = $rows['name'];
-              $email = $rows['email'];
-              $id = $rows['id'];
-                                          
-                echo "<tr>
-                <td>$date</td>
-                <td>$product_id</td>
-                <td>$name</td>
-                <td>$email</td>
-                <td><a href='managervieworderdetailsrefreshments.php?id=$id'>View</a></td>
-                      </tr>";
-            }
-        }    
-    }  
-?> 
 
+
+                        // Fetch classes with status=0
+                        $sql = "SELECT * FROM request WHERE status = 0";
+                        $result = $linkDB->query($sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $row["classid"] . "</td>";
+                                echo "<td>" . $row["date"] . "</td>";
+                                echo "<td><form method='post'><input type='hidden' name='classid' value='" . $row["classid"] . "'><button class='btn-new' type='submit' name='verify'>Verify</button>
+                            </form></td>";
+                                echo "</tr>";
+                            }
+                        
+                            echo "</table>";
+                        } else {
+                            echo "No classes to be verified.";
+                        }
+
+                        // Verify button logic
+                        if (isset($_POST['verify'])) {
+                            $classid = $_POST['classid'];
+                            $sql = "UPDATE request SET status = 1 WHERE classid = '$classid'";
+                            mysqli_query($linkDB, $sql);
+                        
+                        
+                        }
+?>
+
+                
 
             </table>
 

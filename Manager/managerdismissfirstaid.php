@@ -1,8 +1,10 @@
+<?php session_start(); ?>
 <?php
     include("../linkDB.php");
 
     $id = $_GET['id'];
-    $sql = "DELETE FROM first_aid WHERE item_id=$id";
+    $sql = "UPDATE first_aid SET status=0 WHERE item_id=$id AND status = 1";
+
 
     $res = mysqli_query($linkDB, $sql);
 

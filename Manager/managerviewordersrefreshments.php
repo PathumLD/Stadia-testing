@@ -60,45 +60,47 @@
                 <tr>
 
 
-                <th>Order ID</th>
-                <th>Email</th>
                 <th>Date</th>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Show Details</th>
+
 
                 </tr>
 
                 <?php
-                    $query = "SELECT * FROM client_refreshments ";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        $email=$rows['email'];
-                                        $date=$rows['date'];
-                                      
-                                    echo "<tr>
+    $query = "SELECT o.product_id, o.id, o.date, CONCAT(u.fname, ' ', u.lname) AS name, u.email
+    FROM orders o
+    INNER JOIN users u ON o.email = u.email
+    WHERE (o.type = 'snacks' OR o.type = 'drinks') AND o.status = 1;";
+    $res = mysqli_query($linkDB, $query); 
+    if($res == TRUE) 
+    {
+        $count = mysqli_num_rows($res); //calculate number of rows
+        if($count > 0)
+        {
+            while($rows = mysqli_fetch_assoc($res))
+            {
+                $date = $rows['date'];
+                $product_id = $rows['product_id'];
+                $name = $rows['name'];
+                $email = $rows['email'];
+                $id = $rows['id'];
+                                          
+                echo "<tr>
+                          <td>$date</td>
+                          <td>$product_id</td>
+                          <td>$name</td>
+                          <td>$email</td>
+                          <td><a href='managervieworderdetailsrefreshments.php?id=$id'>View</a></td>
+                          
+                      </tr>";
+            }
+        }    
+    }  
+?> 
 
-                                              <td>" . $rows["id"]. "</td>
-                                              <td>" . $rows["email"]. "</td>
-                                              <td>" . $rows["date"]. "</td>
-                                
-                                              <td><a href='managervieworderdetailsrefreshments.php?id=$id; '>View</a> </td>
-
-                                            
-
-                                
-                                            </tr>";
-                                            
-                                    }
-                                }    
-
-                            }  
-                    ?>
 
             </table>
 

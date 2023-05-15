@@ -45,8 +45,40 @@
 
             <h1>Dashboard</h1>
 
+            <div class = "d-a">
+            <ul>
+            <h4> Codes:First-Aid </h4>
+            <li>fa</li>
+</ul>
 
-            <div class = "d-d">
+</div>
+
+<div class = "d-b">
+
+<ul>
+<h4>Codes: Equipment</h4>
+<li><strong>Badminton:</strong> bdm</li>
+<li><strong>Basketball:</strong> bsk</li>
+<li><strong>Swimming:</strong> swm</li>
+<li><strong>Tennis:</strong> tns</li>
+<li><strong>Volleyball:</strong> vlb</li>
+</ul>
+
+</div>
+
+<div class = "d-c">
+<ul>
+<h4>Codes: Class Id</h4>
+<li><strong>Badminton:</strong> cbdm</li>
+<li><strong>Basketball:</strong> cbsk</li>
+<li><strong>Swimming:</strong> cswm</li>
+<li><strong>Tennis:</strong> ctns</li>
+<li><strong>Volleyball:</strong> cvlb</li>
+</ul>
+
+</div>
+
+<div class = "d-d">
 <h4>Complaints to be handled</h4>
 <?php
 $query = "SELECT COUNT(*) AS row_count FROM complaints WHERE status = '0'";
@@ -65,6 +97,9 @@ $query_run = mysqli_query($linkDB, $query);
 
     echo '<h1>' . $row_count . '</h1>';
 ?>
+
+
+</div>
 
 <div class = "d-e">
 <h4>Order Requests</h4>
@@ -89,8 +124,9 @@ $query_run = mysqli_query($linkDB, $query);
 
 </div>
 
+
 <div class = "d-h">
-<h4>Verification needed - New Class</h4>
+<h4>New classes to be verified</h4>
 <?php
 $query = "SELECT COUNT(*) AS row_count FROM coach_classes WHERE status = '0'";
 $query_run = mysqli_query($linkDB, $query);
@@ -131,10 +167,12 @@ $query_run = mysqli_query($linkDB, $query);
 
     echo '<h1>' . $row_count . '</h1>';
 ?>
+
+
 </div>
 
 <div class = "d-j">
-<h4>Verification needed - Cancel Class</h4>
+<h4>Cancel classes to be verified</h4>
 <?php
 $query = "SELECT COUNT(*) AS row_count FROM request WHERE status = '0'";
 $query_run = mysqli_query($linkDB, $query);
@@ -153,42 +191,8 @@ $query_run = mysqli_query($linkDB, $query);
     echo '<h1>' . $row_count . '</h1>';
 ?>
 
-  </div>
-
-  <div class = "d-b">
-
-<ul>
-<h4>Codes: Equipment</h4>
-<li><strong>Badminton:</strong> bdm</li>
-<li><strong>Basketball:</strong> bsk</li>
-<li><strong>Swimming:</strong> swm</li>
-<li><strong>Tennis:</strong> tns</li>
-<li><strong>Volleyball:</strong> vlb</li>
-</ul>
 
 </div>
-
-<div class = "d-c">
-<ul>
-<h4>Codes: Class Id</h4>
-<li><strong>Badminton:</strong> cbdm</li>
-<li><strong>Basketball:</strong> cbsk</li>
-<li><strong>Swimming:</strong> cswm</li>
-<li><strong>Tennis:</strong> ctns</li>
-<li><strong>Volleyball:</strong> cvlb</li>
-</ul>
-
-</div>
-
-<div class = "d-a">
-            <ul>
-            <h4> Codes:First-Aid </h4>
-            <li>fa</li>
-            </ul>
-
-</div>
-
-
 
 
 
@@ -203,10 +207,8 @@ $query_run = mysqli_query($linkDB, $query);
 
 
 
+            
 
-
-
-  
     <footer>
         <div class="foot">
           <?php include("../include/footer.php"); ?>

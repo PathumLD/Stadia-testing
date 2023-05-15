@@ -1,7 +1,7 @@
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
-
-
 <?php session_start(); ?>
+<?php include("../linkDB.php"); //database connection function ?>
+
+
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -18,9 +18,6 @@
 
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
-
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 
    </head>
 <body onload="initClock()">
@@ -43,77 +40,125 @@
 
         <div class="main-content">
 
-          <div class="content">
+          
 
+                <h1>Complaints</h1>
 
-            <h1>Complaints</h1>
+            <div class="content">
 
-            <table class="ps">
-                <tr><td>    </td></tr>
-               <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Complaint...">
-                    <input type="submit" name="go" value="search" id = "searchbtn">
-                    <input type="submit" name="reset" value="reset" id = "resetbtn">
-                </form></td></tr>
-            </table>
-
-            <table class="table">
-    <tr>
-        <th>Subject</th>
-        <th>More Details</th>
-        <th>View</th>
-        <th>Handled</th>
-        <th>Action</th> 
-    </tr>
                 
-    <?php
-    $query = "SELECT * FROM complaints ";
-    $res = mysqli_query($linkDB, $query); 
-    if($res == TRUE) {
-        $count = mysqli_num_rows($res); //calculate number of rows
-        if($count > 0) {
-            while($rows = mysqli_fetch_assoc($res)) {
-                $id = $rows['complaintID'];
-                $handled = $rows['handled'];
-                $checked = $handled == 'yes' ? 'checked' : ''; // set checkbox checked state
+                <div class="all">
+                    
+                    <h4> Complaints </h4>
+
+                    <div class = "data-table">
+
+                        <table class="table-nh">
+
+                            <tr>
+                            <th>Date</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>More Details</th>
+                            <th>Verify</th>
+
+                            </tr>
+
+                            <?php
+
+
+        // Fetch classes with handled=0
+        $sql = "SELECT * FROM complaints WHERE handled = 3";
+        $result = $linkDB->query($sql);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . date('Y-m-d H:i', strtotime($row['datetime'])) . "</td>";
+                echo "<td>" . $row["email"] . "</td>";
+                echo "<td>" . $row["subject"] . "</td>";
+                echo "<td>" . $row["details"] . "</td>";
                 
-                echo "<tr id='row_$id'>
-                            <td>" . $rows['subject'] . "</td>
-                            <td>" . $rows['details'] . "</td>
-                            <td><a href='managerviewcomplaints.php?id=$id'>View</a></td>
-                            <td>
-                                <form action='' method='post'>
-                                    <input type='checkbox' name='handled' value='yes' $checked onclick='this.form.submit()'>
-                                    <input type='hidden' name='complaintID' value='$id'>
-                                </form>
-                            </td>
-                            <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                    </tr>";
+                echo "<td><form method='post'><input type='hidden' name='id' value='" . $row["id"] . "'><button class='btn-new' type='submit' name='verify-n'><i class='fa fa-check' aria-hidden='true'></i></button>
+            </form></td>";
+echo "</tr>";
+
             }
-        } else {
-            echo "0 results";
-        }    
-    }
-    
-    // Handle checkbox form submission
-    if (isset($_POST['handled']) && isset($_POST['complaintID'])) {
-        $handled = mysqli_real_escape_string($linkDB, $_POST['handled']);
-        $complaintID = mysqli_real_escape_string($linkDB, $_POST['complaintID']);
         
-        $query = "UPDATE complaints SET handled='$handled' WHERE complaintID='$complaintID'";
-        if (mysqli_query($linkDB, $query)) {
-            // Success message
+            echo "</table>";
         } else {
-            // Error message
+            echo "No classes to be verified.";
         }
+
+        // Verify button logic
+        if (isset($_POST['verify-n'])) {
+            $id = $_POST['id'];
+            $sql = "UPDATE complaints SET handled = 4 WHERE id = '$id'";
+            mysqli_query($linkDB, $sql);
+        
+        
+        }
+?>
+
+                        </table>
+                    
+                    </div>
+
+                </div>
+
+                <div class="handled">
+
+                    <h4> Handled Complaints </h4>
+
+                    <div class = "frame-h">
+
+                        <table class="table-h">
+                            <tr>
+                            <th>Subject</th>
+                            <th>More Details</th>
+                            <th>Action</th>
+                            </tr>
+
+                            <?php
+
+
+// Fetch classes with handled=0
+$sql = "SELECT * FROM complaints WHERE handled = 4";
+$result = $linkDB->query($sql);
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $id = $row["id"];
+        echo "<tr>";
+        echo "<td>" . $row["subject"] . "</td>";
+        echo "<td>" . $row["details"] . "</td>";
+        echo "<td><form method='post'><input type='hidden' name='id' value='" . $row["id"] . "'><button class='btn-new' type='submit' name='verify-h'><i class='fa fa-check' aria-hidden='true'></i></button>
+        </form></td>";
+        echo "</tr>";
     }
-    ?>
-</table>
+
+    echo "</table>";
+} else {
+    echo "No handled complaints.";
+}
+ // Verify button logic
+if (isset($_POST['verify-h'])) {
+  $id = $_POST['id'];
+  $sql = "UPDATE complaints SET handled = 5 WHERE id = '$id'";
+  mysqli_query($linkDB, $sql);
 
 
-            </table>
+}
 
-          </div>
+
+
+
+?>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -148,22 +193,20 @@
         }
 </script>
 
-<!--popup to delete first aid records-->
-
 <script>
 function confirmRowData(id) {
   // Get the row with the booking data
   var row = document.getElementById('row_' + id);
 
   // Get the booking data from the row
-  var item_id = row.cells[0].innerHTML;
-  var item_name = row.cells[1].innerHTML;
-  var quantity = row.cells[2].innerHTML;
+  var complaintID = row.cells[0].innerHTML;
+  var subject = row.cells[1].innerHTML;
+  var details = row.cells[2].innerHTML;
 
   // Create a custom confirm box
   var confirmBox = document.createElement('div');
   confirmBox.classList.add('confirm-box');
-  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Order Details:</p><ul><li>Date: ' + item_id + '</li><li>Item: ' + item_name + '</li><li>Ordered Quantity: ' + quantity + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Order Details:</p><ul><li>Date: ' + complaintID + '</li><li>Item: ' + subject + '</li><li>Ordered Quantity: ' + details + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
 
   // Add the confirm box to the page
   document.body.appendChild(confirmBox);
@@ -172,8 +215,8 @@ function confirmRowData(id) {
   var confirmButton = document.getElementById('confirm-button');
   var cancelButton = document.getElementById('cancel-button');
   confirmButton.addEventListener('click', function() {
-    // Redirect to the managercomplaints.php page
-    window.location.href = 'managercomplaints.php?id=' + id;
+    // Redirect to the clientcancelequipment.php page
+    window.location.href = 'managerdismisscomplaint.php?id=' + id;
   });
   cancelButton.addEventListener('click', function() {
     // Remove the confirm box from the page
@@ -181,4 +224,3 @@ function confirmRowData(id) {
   });
 }
 </script>
-

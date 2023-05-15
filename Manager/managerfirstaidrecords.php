@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?> 
 
 
 <!DOCTYPE html>
@@ -107,7 +107,7 @@ if ($search) {
   $query = "SELECT * FROM first_aid";
 }
 
-    $query = "SELECT * FROM first_aid ";
+    $query = "SELECT * FROM first_aid WHERE status = 1 ";
     $res = mysqli_query($linkDB, $query); 
     if($res == TRUE) 
              {
@@ -194,7 +194,7 @@ function confirmRowData(id) {
   // Create a custom confirm box
   var confirmBox = document.createElement('div');
   confirmBox.classList.add('confirm-box');
-  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Order Details:</p><ul><li>Date: ' + item_id + '</li><li>Item: ' + item_name + '</li><li>Ordered Quantity: ' + quantity + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+  confirmBox.innerHTML = '<h2>Confirm Deletion of the First Aid Item?</h2><p>Order Details:</p><ul><li>Item ID: ' + item_id + '</li><li>Item Name: ' + item_name + '</li><li>Quantity: ' + quantity + '</li></ul><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
 
   // Add the confirm box to the page
   document.body.appendChild(confirmBox);

@@ -8,7 +8,7 @@ session_start(); // Start the session
 
 if (isset($_POST["title"])) {
     $query = "
-        INSERT INTO slots_badminton1 
+        INSERT INTO slots_basketball 
         (title, start_event, end_event, email) 
         VALUES (:title, :start_event, :end_event, :email)
     ";
@@ -18,7 +18,7 @@ if (isset($_POST["title"])) {
             ':title' => $_POST['title'],
             ':start_event' => $_POST['start'],
             ':end_event' => $_POST['end'],
-            ':email' => $_POST['email'] // Use the email address from the session
+            ':email' => $_SESSION['email'] // Use the email address from the session
         )
     );
 }

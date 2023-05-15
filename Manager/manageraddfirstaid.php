@@ -114,7 +114,7 @@ if (isset($_POST['submit'])) {
   if ($rs) {
     
     //header("location : viewequipment.php");
-    echo "<script>window.location.href='http://localhost/Stadia-reawakening-main/Manager/managerfirstaidrecords.php'; </script>";
+    echo "<script>window.location.href='http://localhost/Stadia-testing-Chamudi/Manager/managerfirstaidrecords.php'; </script>";
 
   }
 }

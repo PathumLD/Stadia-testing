@@ -18,7 +18,7 @@
     <?php include('../include/javascript.php'); ?>
     <?php include('../include/styles.php'); ?>
 
-    <link rel="stylesheet" href="../css/manager.css" />
+    <link rel="stylesheet" href="../css/calender.css" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" /> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -28,6 +28,7 @@
 
     <script>
       $(document).ready(function() {
+          var loggedInUserEmail = "<?php echo $_SESSION['email']; ?>";
           var calendar = $('#calendar').fullCalendar({
             editable:true,
             header:{
@@ -48,10 +49,214 @@
                   maxTime: '22:00:00'
                 }
             },
-            
+            selectable:true,
+            selectHelper:true,
+            select: function(start, end, allDay)
+            {
+              var today = moment().startOf('day');
+              var now = moment();
 
-          });
+              // check if the selected start time is before the current time + 30 minutes
+              var threshold = moment().add(30, 'minutes');
+              if (start < threshold) {
+                alert("Cannot add booking for past or current time slots.");
+                return;
+              }
+
+              // check if the selected start time is within the next 3 months
+              var maxDate = moment().add(3, 'months');
+              if (start > maxDate) {
+                alert("Cannot add booking more than 3 months in advance.");
+                return;
+              }
+
+              var numSlots = parseInt(prompt("Enter the number of consecutive slots you want to book:"));
+              if (isNaN(numSlots) || numSlots <= 0) {
+                alert("Please enter a valid number of slots.");
+                return;
+              }
+
+              var title = prompt("Enter Your Name");
+              if (!title) {
+                return;
+              }
+
+              var slotStart = moment(start).startOf('hour');
+              var slotEnd = moment(slotStart).add(numSlots, 'hours').startOf('hour');
+
+              // check if any of the slots in between the selected start and end times are already booked
+              var eventOverlap = false;
+              calendar.fullCalendar('clientEvents', function(existingEvent) {
+                if (existingEvent.start < slotEnd && existingEvent.end > slotStart) {
+                  eventOverlap = true;
+                  return false;
+                }
+              });
+
+              if (eventOverlap) {
+                alert("Cannot book consecutive slots. A slot in between is already booked.");
+                return;
+              }
+
+              for (var i = 0; i < numSlots; i++) {
+                var slotTitle = title + ' - Slot ' + (i + 1) + ' of ' + numSlots;
+                var slotStartDate = $.fullCalendar.formatDate(slotStart, "Y-MM-DD HH:mm:ss");
+                var slotEndDate = $.fullCalendar.formatDate(moment(slotStart).add(1, 'hour'), "Y-MM-DD HH:mm:ss");
+
+                $.ajax({
+                  url:"bookingsbasketballinsert.php",
+                  type:"POST",
+                  data:{title:slotTitle, start:slotStartDate, end:slotEndDate},
+                  success:function() {
+                    calendar.fullCalendar('refetchEvents');
+                  }
+                });
+
+                slotStart.add(1, 'hour');
+              }
+
+              alert("Slots booked successfully.");
+            },
+
+            editable:true,
+            eventResize:function(event)
+            {
+              if (event.email !== loggedInUserEmail) {
+                alert("You are not authorized to edit this booking.");
+                calendar.fullCalendar('refetchEvents');
+                return;
+              }
+                var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
+                var title = event.title;
+                var id = event.id;
+
+                // check if the new start time is before the current time + 30 minutes
+                var threshold = moment().add(30, 'minutes');
+                if (event.start < threshold) {
+                  alert("Cannot update booking for past or current time slots.");
+                  calendar.fullCalendar('refetchEvents');
+                  return;
+                }
+
+                // check if the new start time is within the next 3 months
+                var maxDate = moment().add(3, 'months');
+                if (event.start > maxDate) {
+                  alert("Cannot update booking more than 3 months in advance.");
+                  calendar.fullCalendar('refetchEvents');
+                  return;
+                }
+
+                $.ajax({
+                  url:"bookingsbasketballupdate.php",
+                  type:"POST",
+                  data:{title:title, start:start, end:end, id:id},
+                  success:function(){
+                      calendar.fullCalendar('refetchEvents');
+                      alert('Booking Update');
+                  }
+                })
+            },
+
+            eventDrop:function(event, delta, revertFunc)
+              {
+                if (event.email !== loggedInUserEmail) {
+                  alert("You are not authorized to edit this booking.");
+                  revertFunc();
+                  return;
+                }
+                  var start = event.start.format("Y-MM-DD HH:mm:ss");
+                  var end = event.end.format("Y-MM-DD HH:mm:ss");
+                  var title = event.title;
+                  var id = event.id;
+                  
+                  // check if the new start time is before the current time + 30 minutes
+                  var threshold = moment().add(30, 'minutes');
+                  if (event.start < threshold) {
+                    alert("Cannot move bookings to past or current time slots.");
+                    revertFunc();
+                    return;
+                  }
+
+                  // check if the new start time is within the next 3 months
+                  var maxDate = moment().add(3, 'months');
+                  if (event.start > maxDate) {
+                    alert("Cannot move bookings more than 3 months in advance.");
+                    revertFunc();
+                    return;
+                  }
+
+                  // check if the new slot is available
+                  var newEventOverlap = false;
+                  calendar.fullCalendar('clientEvents', function(existingEvent) {
+                    if (existingEvent.id !== event.id && existingEvent.start < event.end && existingEvent.end > event.start) {
+                      newEventOverlap = true;
+                      return false;
+                    }
+                  });
+
+                  if (newEventOverlap) {
+                    alert("This slot is already booked. Please select another slot.");
+                    revertFunc();
+                    return;
+                  }
+
+                  // if the new slot is available, update the event's start and end time
+                  $.ajax({
+                    url:"bookingsbasketballupdate.php",
+                    type:"POST",
+                    data:{title:title, start:start, end:end, id:id},
+                    success:function(){
+                        calendar.fullCalendar('refetchEvents');
+                        alert('Booking Updated!');
+                    }
+                  });
+              },
+
+            eventClick:function(event)
+              {
+                if (loggedInUserEmail !== 'chamudisandu@gmail.com' && event.email !== loggedInUserEmail) {
+            alert("You are not authorized to delete this booking.");
+            return;
+          }
+
+          // check if the event start time is before the current time
+          var threshold = moment();
+          if (event.start < threshold) {
+            alert("Cannot remove bookings from past time slots.");
+            return;
+          }
+
+          // get today's date
+          var today = moment().startOf('day');
+
+          // check if the event start date is before today's date
+          var eventDate = moment(event.start).startOf('day');
+          if (eventDate < today) {
+            alert("Cannot remove bookings from past dates.");
+            return;
+          }
+
+          if (confirm("Are you sure you want to remove it?")) {
+            var id = event.id;
+            $.ajax({
+              url: "bookingsbasketballdelete.php",
+              type: "POST",
+              data: { id: id },
+              success: function () {
+                calendar.fullCalendar('refetchEvents');
+                alert("Booking Cancelled!");
+              }
+            })
+          }
+        },
+        eventRender: function (event, element, view) {
+          if (event.email === loggedInUserEmail) {
+            $(element).css('background-color', '#3B6E51');
+          }
+        }
       });
+    });
     </script>
 
 
@@ -76,11 +281,12 @@
 
               <div class="main-content">
 
-                  
+                  <?php $var = $_SESSION['email']; ?>
 
-                  <h1>Bookings - Basketball Court</h1>
+                  <h1>Bookings - Basketball Court </h1>
 
                   <div class="content">
+
 
                   <div class="container">
                     <div id="calendar"></div>
@@ -120,4 +326,3 @@
           });
         }
 </script>
-Footer
