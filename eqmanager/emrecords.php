@@ -68,17 +68,17 @@
 
                 <table id="searchtable">
                         <tr>
-                            <td>
-
                                 <form method="POST">
-                                
-                                    <input type="text" placeholder="Item Name.." name="search" class="search">
-                                    <input type="submit" name="go" value="Search" class="searchbtn" id="searchbtn">
-                                    <a href="emrecords.php"><input type="submit" value="reset" id = "resetbtn"></a>
-                                    
+                                    <td>
+                                        <input type="text" placeholder="Item Name.." name="search" class="search">
+                                    </td>
+                                    <td>
+                                        <input type="submit" name="go" value="Search" class="searchbtn" id="searchbtn">
+                                    </td>
+                                    <td>
+                                        <a href="emrecords.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                                    </td>    
                                 </form>
-
-                            </td>
                         </tr>
                     </table>
 
@@ -142,11 +142,8 @@
                         <form method="POST" >
 
                             <?php
-                                if (isset($_POST['addequipment']) && (empty($item_id) || empty($item_name) || empty($quantity) || empty($price))) {
-                                    echo "<p>Please fill all fields.</p>";
-                                }
-                                else if (isset($_POST['addequipment']) && (!is_numeric($quantity) || !is_numeric($price))){
-                                    echo "<p>Quantity and price must be numeric values.</p>";
+                                if (!empty($error_msg)) {
+                                    echo '<div class="error">' . $error_msg . '</div>';
                                 }
                             ?>
                     
@@ -164,12 +161,22 @@
 
                     <h3>Check Availability</h3>
 
-                    <form method="post">
-                        <input type="date" name="date" min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>"
-                            <?php if (isset($date)) { echo "value=\"$date\""; } else { echo "placeholder=\"Select a date\""; } ?>>
-                        <button type="submit" name="submit_date" id="searchbtn" >Submit Date</button>
-                        <a href="emrecords.php"><input type="submit" value="reset" id = "resetbtn"></a>
-                    </form>
+                    <table >
+                        <tr>
+                            <form method="post">
+                                <td>
+                                    <input type="date" name="date" min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>"
+                                        <?php if (isset($date)) { echo "value=\"$date\""; } else { echo "placeholder=\"Select a date\""; } ?>>
+                                </td>
+                                <td>
+                                    <button type="submit" name="submit_date" id="searchbutton" >Submit Date</button>
+                                </td>
+                                <td>
+                                    <a href="emrecords.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                                </td>
+                            </form>
+                        </tr>
+                    </table>
 
                     <?php
                     if (isset($_POST['submit_date'])) {
@@ -335,6 +342,11 @@ function confirmRowData(id) {
 
         if (!is_numeric($quantity) || !is_numeric($price)) {
             $error_msg .= "<p>Quantity and price must be numeric values.</p>";
+        }
+
+        // Validate item_id format
+        if (!preg_match("/^(Ebdm|Ebsk|Evlb|Etns|Eswm)\d{3}$/", $item_id)) {
+            $error_msg .= "<p>Invalid item ID format. It should start with Ebdm, Ebsk, Evlb, Etns or Eswm followed by three digits.</p>";
         }
 
         if (empty($error_msg)) {

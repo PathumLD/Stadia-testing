@@ -56,6 +56,15 @@
 
             <div class="content">
 
+            <div>
+              Equipment IDs
+                Badminton - Ebdm
+                Basketball - Ebsk
+                Volleyball - Evlb
+                Tennis - Etns
+                Swimming - Eswm
+            </div>
+
             </div>
 
         </div>

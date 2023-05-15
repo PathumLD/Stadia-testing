@@ -58,6 +58,9 @@
                 if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
                     echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
                 }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'maxstudents') {
+                  echo "<div id='notsuccess-message' class='notsuccess-message'>The class is already full.</div>";
+              }
               ?>
 
               <table id="searchtable">
@@ -257,6 +260,7 @@ setTimeout(function() {
     var successMessage = document.getElementById('success-message');
     var notsuccessMessage = document.getElementById('notsuccess-message');
     var unsuccessMessage = document.getElementById('unsuccess-message');
+    var nosuccessMessage = document.getElementById('maxstudents');
 
     if (successMessage) {
         successMessage.style.display = 'none';
@@ -266,6 +270,9 @@ setTimeout(function() {
     }
     if (unsuccessMessage) {
         unsuccessMessage.style.display = 'none';
+    }
+    if (nosuccessMessage) {
+        nosuccessMessage.style.display = 'none';
     }
 }, 3000);
 </script>
