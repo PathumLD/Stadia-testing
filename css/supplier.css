@@ -36,8 +36,19 @@
     
       top: 38%;
       left: 36%;
+      
   }    
   
+  .error {
+    background-color: #D6EFC7;
+    color: red;
+    padding: 10px;
+    border-radius: 10px;
+    width: 45%;
+    font-size: small;
+    margin-left: 0.5rem;
+    text-align: center;
+  }
   .btn{
   color: #fff;
   background: #3B6E51;
@@ -164,21 +175,21 @@
   }
   
   #orders {
-    float:left;
-    margin-right: 767px;
-    margin-top: 16px;
-  }
-  
+    float: left;
+    margin-right: 826px;
+    margin-top: 7px;
+}
   #payment-table {
     float: left;
     margin-right: 773px;
       margin-top: 23px;
   }
   
+
   #supplyorders {
-    float: left;
-    margin-right: 860px;
-      margin-top: 23px;
+      float: left;
+      margin-right: 830px;
+      margin-top: -4px;
   }
   /* 
   .table tr:nth-child(odd) {
@@ -678,3 +689,274 @@
     margin: 0; /* Remove any default margin */
     padding: 0; /* Remove any default padding */
   }
+
+
+
+/* CSS for popup */
+
+.popup_u {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+  
+.popup_u-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+  
+.close_u {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.popup_u h2{
+  text-align: center;
+  text-justify: inter-word;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+  
+.close_u:hover, .close_u:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+  
+.input-field{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+input[type=text], textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+  
+.popup_u .btn{
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  border: none;
+  width: 80%;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+.popup_u .btn:before {
+    height: 0%;
+    width: 2px;
+}
+  
+.popup_u .btn:hover {
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+/* adding background image to page */
+
+/* confirm cancel popup css */
+
+.home-section .home-content .main-content .content table button{
+  background:none;
+  border: 0;
+  font-size: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.confirm-box {
+  position: fixed;
+  max-width: 25rem;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+}
+
+.confirm-box h2, .confirm-box h4{
+  text-align: justify;
+  text-justify: inter-word;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.confirm-box ul {
+  list-style: disc;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.confirm-box li {
+  margin-bottom: 10px;
+}
+
+.confirm-box button {
+  margin-top: 10px;
+  margin: 10px;
+  background-color: #3B6E51;
+  color: #fff;
+  padding: 2% 6%;
+  border: 0;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.confirm-box button:hover{
+  cursor: pointer;
+  background-color: #264838;
+}
+
+.confirm-box #cancel-button{
+  float: right;
+  background-color: red;
+}
+
+.submit-button i {
+  margin-right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+
+ /*delete popup*/
+  
+ .popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+/* confirm cancel popup css */
+
+.home-section .home-content .main-content .content table button{
+  background:none;
+  border: 0;
+  font-size: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.confirm-box {
+  width: 30rem;
+  position: fixed;
+  max-width: 30rem;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+}
+
+.confirm-box h2, .confirm-box h4{
+  text-align: center;
+  text-justify: inter-word;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.confirm-box ul {
+  list-style: disc;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.confirm-box li {
+  margin-bottom: 10px;
+}
+
+.confirm-box button {
+  margin-top: 10px;
+  margin: 10px;
+  background-color: #3B6E51;
+  color: #fff;
+  padding: 2% 6%;
+  border: 0;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+.confirm-box button:hover{
+  cursor: pointer;
+  background-color: #264838;
+}
+
+.confirm-box #cancel-button{
+  float: right;
+  background-color: red;
+}
+
+.submit-button i {
+  margin-right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
