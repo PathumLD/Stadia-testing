@@ -141,7 +141,55 @@
 
                         <form method="POST" >
 
+                        <?php
+
+                                if (isset($_POST['addequipment'])) {
+                                    //Taking HTML Form Data from User
+                                    $item_id = mysqli_real_escape_string($linkDB, $_POST['item_id']);
+                                    $item_name = mysqli_real_escape_string($linkDB, $_POST['item_name']);
+                                    $quantity = mysqli_real_escape_string($linkDB, $_POST['quantity']);
+                                    $price = mysqli_real_escape_string($linkDB, $_POST['price']);  
+
+                                    $error_msg = "";
+
+                                    // Validate input
+                                    if (empty($item_id) || empty($item_name) || empty($quantity) || empty($price)) {
+                                        $error_msg .= "<p>Please fill all fields.</p>";
+                                    }
+
+                                    if (!is_numeric($quantity) || !is_numeric($price)) {
+                                        $error_msg .= "<p>Quantity and price must be numeric values.</p>";
+                                    }
+
+                                    // Validate item_id format
+                                    if (!preg_match("/^(Ebdm|Ebsk|Evlb|Etns|Eswm)\d{3}$/", $item_id)) {
+                                        $error_msg .= "<p>Invalid item ID format. It should start with Ebdm, Ebsk, Evlb, Etns or Eswm followed by three digits.</p>";
+                                    }
+
+                                    if (empty($error_msg)) {
+
+                                        //Check if Item is already exist in the Database
+
+                                        $query = "SELECT * FROM equipment WHERE itemid = '$item_id'";
+                                        $result = mysqli_query($linkDB, $query);
+                                        if (mysqli_num_rows($result) > 0) {
+                                            echo "<script>window.location.href='emrecords.php?mesg=unsuccess'; </script>";
+                                        } else {
+                                            $sql = "INSERT INTO equipment (itemid, itemname, quantity, price) VALUES ('$item_id', '$item_name', '$quantity', '$price')";
+                                            $rs = mysqli_query($linkDB, $sql);
+
+                                            if ($rs) {
+                                                echo "<script>window.location.href='emrecords.php?mesg=success'; </script>";
+                                            } else {
+                                                echo "<script>window.location.href='emrecords.php?mesg=notsuccess'; </script>";
+                                            }
+                                        }
+                                    }
+                            }
+                            ?>
+
                             <?php
+                            
                                 if (!empty($error_msg)) {
                                     echo '<div class="error">' . $error_msg . '</div>';
                                 }
@@ -325,53 +373,7 @@ function confirmRowData(id) {
 
 <!-- add equipment -->
 
-<?php
-    if (isset($_POST['addequipment'])) {
-        //Taking HTML Form Data from User
-        $item_id = mysqli_real_escape_string($linkDB, $_POST['item_id']);
-        $item_name = mysqli_real_escape_string($linkDB, $_POST['item_name']);
-        $quantity = mysqli_real_escape_string($linkDB, $_POST['quantity']);
-        $price = mysqli_real_escape_string($linkDB, $_POST['price']);  
 
-        $error_msg = "";
-
-        // Validate input
-        if (empty($item_id) || empty($item_name) || empty($quantity) || empty($price)) {
-            $error_msg .= "<p>Please fill all fields.</p>";
-        }
-
-        if (!is_numeric($quantity) || !is_numeric($price)) {
-            $error_msg .= "<p>Quantity and price must be numeric values.</p>";
-        }
-
-        // Validate item_id format
-        if (!preg_match("/^(Ebdm|Ebsk|Evlb|Etns|Eswm)\d{3}$/", $item_id)) {
-            $error_msg .= "<p>Invalid item ID format. It should start with Ebdm, Ebsk, Evlb, Etns or Eswm followed by three digits.</p>";
-        }
-
-        if (empty($error_msg)) {
-
-            //Check if Item is already exist in the Database
-
-            $query = "SELECT * FROM equipment WHERE itemid = '$item_id'";
-            $result = mysqli_query($linkDB, $query);
-            if (mysqli_num_rows($result) > 0) {
-                echo "<script>window.location.href='emrecords.php?mesg=unsuccess'; </script>";
-            } else {
-                $sql = "INSERT INTO equipment (itemid, itemname, quantity, price) VALUES ('$item_id', '$item_name', '$quantity', '$price')";
-                $rs = mysqli_query($linkDB, $sql);
-
-                if ($rs) {
-                    echo "<script>window.location.href='emrecords.php?mesg=success'; </script>";
-                } else {
-                    echo "<script>window.location.href='emrecords.php?mesg=notsuccess'; </script>";
-                }
-            }
-        }else {
-            echo $error_msg;
-    }
-}
-?>
 
 <script>
 // Remove the success message after 3 seconds
