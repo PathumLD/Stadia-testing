@@ -1,9 +1,24 @@
 <div class="sidebar-button">
 
-        <i class="fa fa-bars sidebarBtn" ></i>
-        <span class="hello">
-              
-            Hello Equipment Manager
+    <i class="fa fa-bars sidebarBtn" ></i>
+            <span class="hello">
+                <?php 
+
+                    // session_start();
+
+                    $var = $_SESSION['email'];
+
+                    $sql = "SELECT username FROM adminuser WHERE email = '".$var."'";
+                    $result = $linkDB->query($sql);
+
+                                if ($result-> num_rows>0){
+                                    while($row = $result->fetch_assoc()){
+                                    $name=$row["username"];
+                                    }
+                                }
+                ?>
+
+                <?php echo "Hello $name "; ?>
 
         </span>
     </div>
