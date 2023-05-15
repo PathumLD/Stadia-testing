@@ -45,32 +45,36 @@
             <div class="main-content">
 
                 <div class="class">
-                    <h1> My Orders</h1>
+                    <h1> Orders</h1>
 
                     <table class="table" id="orders">
 
                         <thead>
                             <tr>
-                                <th>Order ID</th>
+                                <th>ID</th>
                                 <th>Date</th>
+                                <th>Type</th>
                                 <th>Quantity</th>
-                                <th>Amount</th>
+                                
                                 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             // execute the MySQL query to fetch the data
-                            $query = "SELECT * FROM suppliermyorders";
+                            $query = "SELECT product_id,type, quantity, date 
+                            FROM orders 
+                            WHERE (type = 'drink' OR type = 'snack') AND status = 1 AND s_r = 0";
+                            
                             $result = mysqli_query($linkDB, $query);
 
                             // loop through your orders and display them in the table
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo '<tr>';
-                                echo '<td>' . $row['OrderId'] . '</td>';
-                                echo '<td>' . $row['Date'] . '</td>';
-                                echo '<td>' . $row['Quantity'] . '</td>';
-                                echo '<td>' . $row['Amount'] . '</td>';
+                                echo '<td>' . $row['product_id'] . '</td>';
+                                echo '<td>' . $row['date'] . '</td>';
+                                echo '<td>' . $row['type'] . '</td>';
+                                echo '<td>' . $row['quantity'] . '</td>';
                                 echo '</form>';
                                 echo '</td>';
                                 echo '</tr>';
@@ -80,41 +84,7 @@
                     </table>
 
 
-                    <!-- <?php
-                    // $query = "SELECT * FROM  suppliermyorders";
-                    // $res = mysqli_query($linkDB, $query);
-                    // if ($res == TRUE) {
-                    //     $count = mysqli_num_rows($res); //calculate number of rows
-                    //     if ($count > 0) {
-                    //         while ($rows = mysqli_fetch_assoc($res)) {
-                    //             $OrderId = $rows['OrderId'];
-                    //             $Date = $rows['Date'];
-                    //             $Quantity = $rows['Quantity'];
-                    //             $Amount = $rows['Amount'];
-                    //             ?>
-                    //             <tr>
-                    //                 <td>
-                    //                     <?php echo $OrderId; ?>
-                    //                 </td>
-                    //                 <td>
-                    //                     <?php echo $Date; ?>
-                    //                 </td>
-                    //                 <td>
-                    //                     <?php echo $Quantity; ?>
-                    //                 </td>
-                    //                 <td>
-                    //                     <?php echo $Amount; ?>
-                                    </td>
-                                    
-
-                                </tr>
-                                <?php
-                                //         }
-                                //     }
-                                
-                                // }
-                                // ?> -->
-
+                   
 
                 </div>
             </div>

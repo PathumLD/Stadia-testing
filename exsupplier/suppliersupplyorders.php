@@ -40,70 +40,69 @@
         </nav>
 
         <div class="home-content">
-            
+
 
             <div class="main-content">
-            <div class="class">
-            <h1>Supply Orders</h1>
+                <div class="class">
+                    <h1>Supply Orders</h1>
+                    <table class="table" id="supplyorders">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Supplied</th> <!-- Add new column for checkbox -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // execute the MySQL query to fetch the data
+                            $query = "SELECT product_id,type, quantity, date 
+                            FROM orders 
+                            WHERE (type = 'drink' OR type = 'snack') AND status = 1 AND s_r = 0";
 
-                
+                            $result = mysqli_query($linkDB, $query);
 
-                <table class="table" id="supplyorders">
-
-                    <tr>
-
-                        <th>Date</th>
-                        <th>Order Id</th>
-                        <th>Supplied</th>
-                        
-                    </tr>
-
-                    <?php
-                    $query = "SELECT * FROM suppliermyorders";
-                    $res = mysqli_query($linkDB, $query);
-                    if ($res == TRUE) {
-                        $count = mysqli_num_rows($res); //calculate number of rows
-                        if ($count > 0) {
-                            while ($rows = mysqli_fetch_assoc($res)) {
-                                $Date= $rows['Date'];
-                                $OrderId = $rows['OrderId'];
-                               
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $Date; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $OrderId; ?>
-                                    </td>
-                                    <td><input type="checkbox" id="checkItem" class="chckbox" name="check[]" value="1"></td>
-                                </tr>
-                                <?php
+                            // loop through your orders and display them in the table
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>';
+                                echo '<td>' . $row['product_id'] . '</td>';
+                                echo '<td>' . $row['date'] . '</td>';
+                                echo '<td>' . $row['type'] . '</td>';
+                                echo '<td>' . $row['quantity'] . '</td>';
+                                echo '<td>';
+                                echo '<form method="post" action="">'; // Use POST method to submit the form
+                                echo '<input type="checkbox" name="orders[]" value="' . $row['product_id'] . ',' . $row['date'] . ',' . $row['quantity'] . '" style="transform: scale(1.5);">';
+                                echo '</td>';
+                                echo '</tr>';
                             }
-                        }
 
-                    }
-                    ?>
-<?php
-if (isset($_POST['OrderId'])) {
-    $OrderId = $_POST['OrderId'];
+                            // Handle the form submission
+                            if (isset($_POST['update_status'])) {
+                                if (!empty($_POST['orders'])) {
+                                    foreach ($_POST['orders'] as $order) {
+                                        $order_data = explode(',', $order);
+                                        $product_id = $order_data[0];
+                                        $date = $order_data[1];
+                                        $quantity = $order_data[2];
+                                        $sql = "UPDATE orders SET s_r = 2 WHERE product_id = '$product_id' AND date = '$date' AND quantity = '$quantity'";
+                                        mysqli_query($linkDB, $sql);
+                                    }
+                                    header("Location: suppliermyorders.php"); // Redirect back to the orders page
+                                }
+                            }
+                            ?>
+                        </tbody>
 
-// retrieve the orderId from the POST parameter
-$OrderId = $_POST['OrderId'];
+                    </table>
+                    <button class="btn-new" type="submit" name="update_status"
+                        style=" margin-left: 923px;margin-top: 2px">Update Supplied Orders</button>
 
-// update the suppliermyorders table to indicate that the order has been supplied
-$query = "UPDATE suppliermyorders SET status = '1' WHERE OrderId = '$OrderId'";
-$result = mysqli_query($linkDB, $query);
-
-}
-?>
-
-                </table>
+                </div>
 
             </div>
-
         </div>
-</div>
         <footer>
             <div class="foot">
                 <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
